@@ -1,0 +1,31 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pokesai.dev/schemas/calc_features.schema.json",
+  "title": "CalcFeaturesResponse",
+  "type": "object",
+  "required": ["features"],
+  "properties": {
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["action", "accuracy", "minDamagePercent", "maxDamagePercent", "ohkoProb", "twohkoProb", "speedControl", "hazardOnSwitchPercent", "expectedDamagePercent", "survivalProb", "expectedNetGain"],
+        "properties": {
+          "action": { "$ref": "https://pokesai.dev/schemas/action.schema.json" },
+          "accuracy": { "type": "number", "minimum": 0, "maximum": 1 },
+          "minDamagePercent": { "type": "number", "minimum": 0, "maximum": 100 },
+          "maxDamagePercent": { "type": "number", "minimum": 0, "maximum": 100 },
+          "ohkoProb": { "type": "number", "minimum": 0, "maximum": 1 },
+          "twohkoProb": { "type": "number", "minimum": 0, "maximum": 1 },
+          "speedControl": { "type": "string", "enum": ["outspeed", "speed_tie", "underspeed"] },
+          "hazardOnSwitchPercent": { "type": "number", "minimum": 0, "maximum": 100 },
+          "expectedDamagePercent": { "type": "number", "minimum": 0, "maximum": 100 },
+          "survivalProb": { "type": "number", "minimum": 0, "maximum": 1 },
+          "expectedNetGain": { "type": "number" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

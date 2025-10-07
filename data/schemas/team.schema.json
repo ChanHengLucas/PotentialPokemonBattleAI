@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pokesai.dev/schemas/team.schema.json",
+  "title": "Team",
+  "type": "object",
+  "required": ["format", "team"],
+  "properties": {
+    "format": { "type": "string" },
+    "team": {
+      "type": "array",
+      "minItems": 6,
+      "maxItems": 6,
+      "items": { "$ref": "#/$defs/PokemonSet" }
+    }
+  },
+  "$defs": {
+    "PokemonSet": {
+      "type": "object",
+      "required": ["species", "item", "ability", "evs", "nature", "moves"],
+      "properties": {
+        "species": { "type": "string" },
+        "item": { "type": "string" },
+        "ability": { "type": "string" },
+        "level": { "type": "integer", "minimum": 1, "maximum": 100, "default": 100 },
+        "teraType": { "type": ["string", "null"] },
+        "evs": {
+          "type": "object",
+          "required": ["hp", "atk", "def", "spa", "spd", "spe"],
+          "properties": {
+            "hp": { "type": "integer", "minimum": 0, "maximum": 252 },
+            "atk": { "type": "integer", "minimum": 0, "maximum": 252 },
+            "def": { "type": "integer", "minimum": 0, "maximum": 252 },
+            "spa": { "type": "integer", "minimum": 0, "maximum": 252 },
+            "spd": { "type": "integer", "minimum": 0, "maximum": 252 },
+            "spe": { "type": "integer", "minimum": 0, "maximum": 252 }
+          },
+          "additionalProperties": false
+        },
+        "ivs": {
+          "type": "object",
+          "properties": {
+            "hp": { "type": "integer", "minimum": 0, "maximum": 31 },
+            "atk": { "type": "integer", "minimum": 0, "maximum": 31 },
+            "def": { "type": "integer", "minimum": 0, "maximum": 31 },
+            "spa": { "type": "integer", "minimum": 0, "maximum": 31 },
+            "spd": { "type": "integer", "minimum": 0, "maximum": 31 },
+            "spe": { "type": "integer", "minimum": 0, "maximum": 31 }
+          },
+          "additionalProperties": false
+        },
+        "nature": { "type": "string" },
+        "moves": {
+          "type": "array",
+          "minItems": 1,
+          "maxItems": 4,
+          "items": { "type": "string" }
+        }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}

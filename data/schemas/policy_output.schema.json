@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pokesai.dev/schemas/policy_output.schema.json",
+  "title": "PolicyOutput",
+  "type": "object",
+  "required": ["actions"],
+  "properties": {
+    "actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["action", "probability"],
+        "properties": {
+          "action": { "$ref": "https://pokesai.dev/schemas/action.schema.json" },
+          "probability": { "type": "number", "minimum": 0 }
+        },
+        "additionalProperties": false
+      }
+    },
+    "rationale": { "type": ["string", "null"], "description": "Optional brief explanation for logging" }
+  },
+  "additionalProperties": false
+}

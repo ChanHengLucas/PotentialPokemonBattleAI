@@ -1,0 +1,188 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://pokesai.dev/schemas/battle_state.schema.json",
+  "title": "BattleState",
+  "type": "object",
+  "required": ["format", "turn", "sides"],
+  "properties": {
+    "format": { "type": "string", "description": "Format identifier, e.g., gen9ou" },
+    "turn": { "type": "integer", "minimum": 1 },
+    "weather": { "type": "string", "nullable": true },
+    "terrain": { "type": "string", "nullable": true },
+    "screens": {
+      "type": "object",
+      "properties": {
+        "reflect": { "type": "boolean" },
+        "lightScreen": { "type": "boolean" },
+        "auroraVeil": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "lastActions": {
+      "type": "array",
+      "items": { "$ref": "https://pokesai.dev/schemas/action.schema.json" },
+      "description": "Chronological list of last actions (my side then opponent)."
+    },
+    "sides": {
+      "type": "object",
+      "required": ["me", "opponent"],
+      "properties": {
+        "me": { "$ref": "#/$defs/Side" },
+        "opponent": { "$ref": "#/$defs/Side" }
+      },
+      "additionalProperties": false
+    }
+  },
+  "$defs": {
+    "Side": {
+      "type": "object",
+      "required": ["active", "bench", "hazards"],
+      "properties": {
+        "active": { "$ref": "#/$defs/Pokemon" },
+        "bench": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Pokemon" },
+          "maxItems": 5
+        },
+        "hazards": {
+          "type": "object",
+          "properties": {
+            "stealthRock": { "type": "boolean", "default": false },
+            "spikes": { "type": "integer", "minimum": 0, "maximum": 3, "default": 0 },
+            "toxicSpikes": { "type": "integer", "minimum": 0, "maximum": 2, "default": 0 },
+            "stickyWeb": { "type": "boolean", "default": false }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "Pokemon": {
+      "type": "object",
+      "required": [
+        "species",
+        "level",
+        "hp",
+        "status",
+        "boosts",
+        "moves",
+        "stats",
+        "types",
+        "fainted",
+        "revealed",
+        "tera"
+      ],
+      "properties": {
+        "species": { "type": "string" },
+        "level": { "type": "integer", "minimum": 1, "maximum": 100, "default": 100 },
+        "gender": { "type": "string", "nullable": true },
+        "hp": {
+          "type": "object",
+          "required": ["current", "max", "percent"],
+          "properties": {
+            "current": { "type": "integer", "minimum": 0 },
+            "max": { "type": "integer", "minimum": 1 },
+            "percent": { "type": "number", "minimum": 0, "maximum": 100 }
+          },
+          "additionalProperties": false
+        },
+        "status": {
+          "type": "string",
+          "enum": ["none", "brn", "par", "slp", "frz", "psn", "tox"]
+        },
+        "boosts": {
+          "type": "object",
+          "properties": {
+            "atk": { "type": "integer", "minimum": -6, "maximum": 6, "default": 0 },
+            "def": { "type": "integer", "minimum": -6, "maximum": 6, "default": 0 },
+            "spa": { "type": "integer", "minimum": -6, "maximum": 6, "default": 0 },
+            "spd": { "type": "integer", "minimum": -6, "maximum": 6, "default": 0 },
+            "spe": { "type": "integer", "minimum": -6, "maximum": 6, "default": 0 }
+          },
+          "additionalProperties": false
+        },
+        "moves": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/Move" },
+          "maxItems": 4
+        },
+        "item": { "type": ["string", "null"] },
+        "ability": { "type": ["string", "null"] },
+        "types": {
+          "type": "array",
+          "items": { "type": "string" },
+          "minItems": 1,
+          "maxItems": 2
+        },
+        "nature": { "type": ["string", "null"] },
+        "stats": {
+          "type": "object",
+          "required": ["hp", "atk", "def", "spa", "spd", "spe"],
+          "properties": {
+            "hp": { "type": "integer" },
+            "atk": { "type": "integer" },
+            "def": { "type": "integer" },
+            "spa": { "type": "integer" },
+            "spd": { "type": "integer" },
+            "spe": { "type": "integer" }
+          },
+          "additionalProperties": false
+        },
+        "ivs": {
+          "type": "object",
+          "properties": {
+            "hp": { "type": "integer" },
+            "atk": { "type": "integer" },
+            "def": { "type": "integer" },
+            "spa": { "type": "integer" },
+            "spd": { "type": "integer" },
+            "spe": { "type": "integer" }
+          },
+          "additionalProperties": false
+        },
+        "evs": {
+          "type": "object",
+          "properties": {
+            "hp": { "type": "integer" },
+            "atk": { "type": "integer" },
+            "def": { "type": "integer" },
+            "spa": { "type": "integer" },
+            "spd": { "type": "integer" },
+            "spe": { "type": "integer" }
+          },
+          "additionalProperties": false
+        },
+        "fainted": { "type": "boolean" },
+        "revealed": { "type": "boolean" },
+        "tera": {
+          "type": "object",
+          "required": ["available", "used"],
+          "properties": {
+            "available": { "type": "boolean" },
+            "used": { "type": "boolean" },
+            "type": { "type": ["string", "null"] }
+          },
+          "additionalProperties": false
+        }
+      },
+      "additionalProperties": false
+    },
+    "Move": {
+      "type": "object",
+      "required": ["id", "name", "type", "category", "basePower", "accuracy", "pp", "priority"],
+      "properties": {
+        "id": { "type": "string" },
+        "name": { "type": "string" },
+        "type": { "type": "string" },
+        "category": { "type": "string", "enum": ["Physical", "Special", "Status"] },
+        "basePower": { "type": "integer", "minimum": 0 },
+        "accuracy": { "type": "number", "minimum": 0, "maximum": 1 },
+        "pp": { "type": "integer", "minimum": 0 },
+        "priority": { "type": "integer" },
+        "flags": { "type": "object", "additionalProperties": true }
+      },
+      "additionalProperties": false
+    }
+  },
+  "additionalProperties": false
+}
