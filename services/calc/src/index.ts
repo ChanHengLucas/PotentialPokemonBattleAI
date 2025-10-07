@@ -19,7 +19,8 @@ app.post('/calc/evaluate', (req, res) => {
   return res.json(response);
 });
 
-const PORT = process.env.PORT ? Number(process.env.PORT) : 4001;
+// Prefer CALC_PORT and ignore generic PORT to avoid PaaS-injected conflicts
+const PORT = process.env.CALC_PORT ? Number(process.env.CALC_PORT) : 4001;
 app.listen(PORT, () => {
   console.log(`Calc service listening on http://localhost:${PORT}`);
 });
