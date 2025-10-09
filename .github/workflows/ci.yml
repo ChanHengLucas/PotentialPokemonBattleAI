@@ -1,0 +1,141 @@
+name: PokéAI CI
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main, develop ]
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+    
+    strategy:
+      matrix:
+        node-version: [18.x]
+        python-version: [3.9]
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v4
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+    
+    - name: Use Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v4
+      with:
+        python-version: ${{ matrix.python-version }}
+    
+    - name: Install Node.js dependencies
+      run: |
+        npm install
+        cd services/calc && npm install
+    
+    - name: Install Python dependencies
+      run: |
+        cd services/policy && pip install -r requirements.txt
+        cd ../teambuilder && pip install -r requirements.txt
+    
+    - name: Build TypeScript
+      run: |
+        npm run build
+        cd services/calc && npm run build
+    
+    - name: Run TypeScript tests
+      run: |
+        cd services/calc && npm test
+    
+    - name: Run Python tests
+      run: |
+        cd tests/teambuilder && python -m pytest test_build_schema.py -v
+        cd ../policy && python -m pytest test_masking.py -v
+    
+    - name: Validate schemas
+      run: |
+        # Check that schema files are valid JSON
+        python -c "import json; json.load(open('data/schemas/team.schema.json')); print('Team schema valid')"
+        python -c "import json; json.load(open('data/schemas/calc.schema.json')); print('Calc schema valid')"
+        python -c "import json; json.load(open('data/schemas/battle_state.schema.json')); print('Battle state schema valid')"
+    
+    - name: Lint TypeScript
+      run: |
+        cd services/calc && npm run lint
+    
+    - name: Check code formatting
+      run: |
+        # Check that Python files follow basic formatting
+        python -m py_compile services/policy/main.py
+        python -m py_compile services/teambuilder/main.py
+        python -m py_compile services/teambuilder/ingest.py
+
+  integration-test:
+    runs-on: ubuntu-latest
+    needs: test
+    
+    steps:
+    - uses: actions/checkout@v4
+    
+    - name: Use Node.js 18.x
+      uses: actions/setup-node@v4
+      with:
+        node-version: 18.x
+        cache: 'npm'
+    
+    - name: Use Python 3.9
+      uses: actions/setup-python@v4
+      with:
+        python-version: 3.9
+    
+    - name: Install dependencies
+      run: |
+        npm install
+        cd services/calc && npm install
+        cd ../policy && pip install -r requirements.txt
+        cd ../teambuilder && pip install -r requirements.txt
+    
+    - name: Build services
+      run: |
+        npm run build
+        cd services/calc && npm run build
+    
+    - name: Start services
+      run: |
+        # Start services in background
+        cd services/calc && npm run dev &
+        cd services/policy && python main.py &
+        cd services/teambuilder && python main.py &
+        
+        # Wait for services to start
+        sleep 15
+        
+        # Check service health
+        curl -f http://localhost:3001/health || exit 1
+        curl -f http://localhost:8000/health || exit 1
+        curl -f http://localhost:8001/health || exit 1
+    
+    - name: Run integration tests
+      run: |
+        # Test team building
+        python services/teambuilder/cli_build.py --format gen9ou --out /tmp/test_team.json
+        
+        # Test calc service
+        curl -X POST http://localhost:3001/batch-calc \
+          -H "Content-Type: application/json" \
+          -d '{"state": {"id": "test", "format": "gen9ou", "turn": 1, "phase": "battle", "p1": {"name": "p1", "team": {"pokemon": [], "format": "gen9ou"}, "bench": [], "side": {"hazards": {"spikes": 0, "toxicSpikes": 0, "stealthRock": false, "stickyWeb": false}, "screens": {"reflect": false, "lightScreen": false, "auroraVeil": false}, "sideConditions": {"tailwind": false, "trickRoom": false, "gravity": false, "wonderRoom": false, "magicRoom": false}}, "active": {"species": "Dragapult", "level": 100, "hp": 100, "maxhp": 100, "boosts": {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "accuracy": 0, "evasion": 0}, "moves": [{"id": "shadowball", "name": "Shadow Ball", "pp": 16, "maxpp": 16}], "ability": "Clear Body", "position": "active"}}, "p2": {"name": "p2", "team": {"pokemon": [], "format": "gen9ou"}, "bench": [], "side": {"hazards": {"spikes": 0, "toxicSpikes": 0, "stealthRock": false, "stickyWeb": false}, "screens": {"reflect": false, "lightScreen": false, "auroraVeil": false}, "sideConditions": {"tailwind": false, "trickRoom": false, "gravity": false, "wonderRoom": false, "magicRoom": false}}, "active": {"species": "Garchomp", "level": 100, "hp": 100, "maxhp": 100, "boosts": {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "accuracy": 0, "evasion": 0}, "moves": [{"id": "earthquake", "name": "Earthquake", "pp": 16, "maxpp": 16}], "ability": "Rough Skin", "position": "active"}}, "field": {"hazards": {"spikes": 0, "toxicSpikes": 0, "stealthRock": false, "stickyWeb": false}, "screens": {"reflect": false, "lightScreen": false, "auroraVeil": false}, "sideConditions": {"tailwind": false, "trickRoom": false, "gravity": false, "wonderRoom": false, "magicRoom": false}}, "log": [], "lastActions": {}, "opponentModel": {"evDistributions": {}, "itemDistributions": {}, "teraDistributions": {}, "moveDistributions": {}, "revealedSets": {}}}, "actions": [{"type": "move", "move": "shadowball"}]}' \
+          | jq -e '.results | length > 0' || exit 1
+        
+        # Test policy service
+        curl -X POST http://localhost:8000/policy \
+          -H "Content-Type: application/json" \
+          -d '{"battleState": {"id": "test", "format": "gen9ou", "turn": 1, "phase": "battle", "p1": {"name": "p1", "team": {"pokemon": [], "format": "gen9ou"}, "bench": [], "side": {"hazards": {"spikes": 0, "toxicSpikes": 0, "stealthRock": false, "stickyWeb": false}, "screens": {"reflect": false, "lightScreen": false, "auroraVeil": false}, "sideConditions": {"tailwind": false, "trickRoom": false, "gravity": false, "wonderRoom": false, "magicRoom": false}}, "active": {"species": "Dragapult", "level": 100, "hp": 100, "maxhp": 100, "boosts": {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "accuracy": 0, "evasion": 0}, "moves": [{"id": "shadowball", "name": "Shadow Ball", "pp": 16, "maxpp": 16}], "ability": "Clear Body", "position": "active"}}, "p2": {"name": "p2", "team": {"pokemon": [], "format": "gen9ou"}, "bench": [], "side": {"hazards": {"spikes": 0, "toxicSpikes": 0, "stealthRock": false, "stickyWeb": false}, "screens": {"reflect": false, "lightScreen": false, "auroraVeil": false}, "sideConditions": {"tailwind": false, "trickRoom": false, "gravity": false, "wonderRoom": false, "magicRoom": false}}, "active": {"species": "Garchomp", "level": 100, "hp": 100, "maxhp": 100, "boosts": {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "accuracy": 0, "evasion": 0}, "moves": [{"id": "earthquake", "name": "Earthquake", "pp": 16, "maxpp": 16}], "ability": "Rough Skin", "position": "active"}}, "field": {"hazards": {"spikes": 0, "toxicSpikes": 0, "stealthRock": false, "stickyWeb": false}, "screens": {"reflect": false, "lightScreen": false, "auroraVeil": false}, "sideConditions": {"tailwind": false, "trickRoom": false, "gravity": false, "wonderRoom": false, "magicRoom": false}}, "log": [], "lastActions": {}, "opponentModel": {"evDistributions": {}, "itemDistributions": {}, "teraDistributions": {}, "moveDistributions": {}, "revealedSets": {}}}, "calcResults": [{"action": {"type": "move", "move": "shadowball"}, "accuracy": 100, "speedCheck": {"faster": true, "speedDiff": 20}, "priority": 0}]}' \
+          | jq -e '.action' || exit 1
+    
+    - name: Cleanup
+      if: always()
+      run: |
+        pkill -f "calc.*dev" || true
+        pkill -f "policy.*main.py" || true
+        pkill -f "teambuilder.*main.py" || true

@@ -1,0 +1,78 @@
+version: '3.8'
+
+services:
+  calc-service:
+    build:
+      context: ./services/calc
+      dockerfile: Dockerfile
+    ports:
+      - "3001:3001"
+    environment:
+      - NODE_ENV=production
+      - PORT=3001
+    volumes:
+      - ./data:/app/data
+    networks:
+      - pokeai-network
+
+  policy-service:
+    build:
+      context: ./services/policy
+      dockerfile: Dockerfile
+    ports:
+      - "8000:8000"
+    environment:
+      - PYTHONPATH=/app
+      - MODEL_PATH=/app/models
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+    networks:
+      - pokeai-network
+    depends_on:
+      - calc-service
+
+  teambuilder-service:
+    build:
+      context: ./services/teambuilder
+      dockerfile: Dockerfile
+    ports:
+      - "8001:8001"
+    environment:
+      - PYTHONPATH=/app
+      - MODEL_PATH=/app/models
+    volumes:
+      - ./models:/app/models
+      - ./data:/app/data
+    networks:
+      - pokeai-network
+    depends_on:
+      - calc-service
+
+  client:
+    build:
+      context: ./client
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"
+    environment:
+      - NODE_ENV=production
+      - CALC_SERVICE_URL=http://calc-service:3001
+      - POLICY_SERVICE_URL=http://policy-service:8000
+      - TEAMBUILDER_SERVICE_URL=http://teambuilder-service:8001
+    volumes:
+      - ./data:/app/data
+    networks:
+      - pokeai-network
+    depends_on:
+      - calc-service
+      - policy-service
+      - teambuilder-service
+
+networks:
+  pokeai-network:
+    driver: bridge
+
+volumes:
+  data:
+  models:

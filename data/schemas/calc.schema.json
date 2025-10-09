@@ -1,0 +1,57 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://pokeai.dev/schemas/calc.schema.json",
+  "title": "PokéAI Calculation Schema",
+  "description": "Schema for calculation service responses",
+  "type": "object",
+  "properties": {
+    "results": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "action": {
+            "type": "object",
+            "properties": {
+              "type": {"type": "string"},
+              "target": {"type": "string"},
+              "move": {"type": "string"},
+              "pokemon": {"type": "integer"},
+              "teraType": {"type": "string"}
+            },
+            "required": ["type"]
+          },
+          "damage": {
+            "type": "object",
+            "properties": {
+              "min": {"type": "number"},
+              "max": {"type": "number"},
+              "average": {"type": "number"},
+              "ohko": {"type": "number"},
+              "twohko": {"type": "number"}
+            }
+          },
+          "accuracy": {"type": "number"},
+          "speedCheck": {
+            "type": "object",
+            "properties": {
+              "faster": {"type": "boolean"},
+              "speedDiff": {"type": "number"}
+            }
+          },
+          "hazardDamage": {"type": "number"},
+          "statusChance": {"type": "number"},
+          "expectedSurvival": {"type": "number"},
+          "expectedGain": {"type": "number"},
+          "priority": {"type": "integer"}
+        },
+        "required": ["action", "accuracy", "speedCheck", "priority"]
+      }
+    },
+    "dexVersion": {
+      "type": "string"
+    }
+  },
+  "required": ["results", "dexVersion"],
+  "additionalProperties": false
+}

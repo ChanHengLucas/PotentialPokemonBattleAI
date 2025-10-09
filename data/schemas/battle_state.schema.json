@@ -1,0 +1,258 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://pokeai.dev/schemas/battle_state.schema.json",
+  "title": "PokéAI Battle State Schema",
+  "description": "Schema for battle state representation",
+  "type": "object",
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "format": {
+      "type": "string"
+    },
+    "turn": {
+      "type": "integer",
+      "minimum": 0
+    },
+    "phase": {
+      "type": "string",
+      "enum": ["preparation", "team-preview", "battle", "finished"]
+    },
+    "winner": {
+      "type": "string",
+      "enum": ["p1", "p2", "tie"]
+    },
+    "p1": {
+      "$ref": "#/definitions/Player"
+    },
+    "p2": {
+      "$ref": "#/definitions/Player"
+    },
+    "field": {
+      "$ref": "#/definitions/Field"
+    },
+    "log": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/BattleLogEntry"
+      }
+    },
+    "lastActions": {
+      "type": "object",
+      "properties": {
+        "p1": {
+          "$ref": "#/definitions/Action"
+        },
+        "p2": {
+          "$ref": "#/definitions/Action"
+        }
+      }
+    },
+    "opponentModel": {
+      "$ref": "#/definitions/OpponentModel"
+    }
+  },
+  "required": ["id", "format", "turn", "phase", "p1", "p2", "field", "log", "lastActions", "opponentModel"],
+  "definitions": {
+    "Player": {
+      "type": "object",
+      "properties": {
+        "name": {"type": "string"},
+        "team": {"$ref": "#/definitions/Team"},
+        "active": {"$ref": "#/definitions/Pokemon"},
+        "bench": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/Pokemon"}
+        },
+        "side": {"$ref": "#/definitions/Field"},
+        "lastMove": {"type": "string"},
+        "lastSwitch": {"type": "integer"},
+        "teraUsed": {"type": "boolean"}
+      },
+      "required": ["name", "team", "bench", "side"]
+    },
+    "Team": {
+      "type": "object",
+      "properties": {
+        "pokemon": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/Pokemon"}
+        },
+        "name": {"type": "string"},
+        "format": {"type": "string"}
+      },
+      "required": ["pokemon", "format"]
+    },
+    "Pokemon": {
+      "type": "object",
+      "properties": {
+        "species": {"type": "string"},
+        "nickname": {"type": "string"},
+        "level": {"type": "integer", "minimum": 1, "maximum": 100},
+        "gender": {"type": "string", "enum": ["M", "F", "N"]},
+        "shiny": {"type": "boolean"},
+        "hp": {"type": "integer", "minimum": 0},
+        "maxhp": {"type": "integer", "minimum": 1},
+        "status": {"$ref": "#/definitions/StatusCondition"},
+        "statusData": {"type": "object"},
+        "boosts": {"$ref": "#/definitions/StatBoosts"},
+        "moves": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/Move"}
+        },
+        "item": {"type": "string"},
+        "ability": {"type": "string"},
+        "teraType": {"type": "string"},
+        "terastallized": {"type": "boolean"},
+        "position": {"type": "string"}
+      },
+      "required": ["species", "level", "hp", "maxhp", "boosts", "moves", "ability", "position"]
+    },
+    "StatusCondition": {
+      "type": "object",
+      "properties": {
+        "name": {"type": "string", "enum": ["par", "psn", "tox", "brn", "frz", "slp", "fnt"]},
+        "turnsLeft": {"type": "integer", "minimum": 0}
+      },
+      "required": ["name"]
+    },
+    "StatBoosts": {
+      "type": "object",
+      "properties": {
+        "atk": {"type": "integer", "minimum": -6, "maximum": 6},
+        "def": {"type": "integer", "minimum": -6, "maximum": 6},
+        "spa": {"type": "integer", "minimum": -6, "maximum": 6},
+        "spd": {"type": "integer", "minimum": -6, "maximum": 6},
+        "spe": {"type": "integer", "minimum": -6, "maximum": 6},
+        "accuracy": {"type": "integer", "minimum": -6, "maximum": 6},
+        "evasion": {"type": "integer", "minimum": -6, "maximum": 6}
+      },
+      "required": ["atk", "def", "spa", "spd", "spe", "accuracy", "evasion"]
+    },
+    "Move": {
+      "type": "object",
+      "properties": {
+        "id": {"type": "string"},
+        "name": {"type": "string"},
+        "pp": {"type": "integer", "minimum": 0},
+        "maxpp": {"type": "integer", "minimum": 0},
+        "disabled": {"type": "boolean"},
+        "target": {"type": "string"},
+        "type": {"type": "string"},
+        "category": {"type": "string"},
+        "power": {"type": "integer", "minimum": 0},
+        "accuracy": {"type": "integer", "minimum": 0, "maximum": 100},
+        "priority": {"type": "integer"}
+      },
+      "required": ["id", "name", "pp", "maxpp"]
+    },
+    "Field": {
+      "type": "object",
+      "properties": {
+        "weather": {"$ref": "#/definitions/Weather"},
+        "terrain": {"$ref": "#/definitions/Terrain"},
+        "pseudoWeather": {
+          "type": "array",
+          "items": {"$ref": "#/definitions/PseudoWeather"}
+        },
+        "hazards": {"$ref": "#/definitions/Hazards"},
+        "screens": {"$ref": "#/definitions/Screens"},
+        "sideConditions": {"$ref": "#/definitions/SideConditions"}
+      }
+    },
+    "Weather": {
+      "type": "object",
+      "properties": {
+        "type": {"type": "string", "enum": ["sunnyday", "raindance", "sandstorm", "hail", "snow"]},
+        "turnsLeft": {"type": "integer", "minimum": 0}
+      },
+      "required": ["type"]
+    },
+    "Terrain": {
+      "type": "object",
+      "properties": {
+        "type": {"type": "string", "enum": ["electric", "grassy", "misty", "psychic"]},
+        "turnsLeft": {"type": "integer", "minimum": 0}
+      },
+      "required": ["type"]
+    },
+    "PseudoWeather": {
+      "type": "object",
+      "properties": {
+        "type": {"type": "string"},
+        "turnsLeft": {"type": "integer", "minimum": 0}
+      },
+      "required": ["type"]
+    },
+    "Hazards": {
+      "type": "object",
+      "properties": {
+        "spikes": {"type": "integer", "minimum": 0, "maximum": 3},
+        "toxicSpikes": {"type": "integer", "minimum": 0, "maximum": 2},
+        "stealthRock": {"type": "boolean"},
+        "stickyWeb": {"type": "boolean"}
+      },
+      "required": ["spikes", "toxicSpikes", "stealthRock", "stickyWeb"]
+    },
+    "Screens": {
+      "type": "object",
+      "properties": {
+        "reflect": {"type": "boolean"},
+        "lightScreen": {"type": "boolean"},
+        "auroraVeil": {"type": "boolean"}
+      },
+      "required": ["reflect", "lightScreen", "auroraVeil"]
+    },
+    "SideConditions": {
+      "type": "object",
+      "properties": {
+        "tailwind": {"type": "boolean"},
+        "tailwindTurns": {"type": "integer", "minimum": 0},
+        "trickRoom": {"type": "boolean"},
+        "trickRoomTurns": {"type": "integer", "minimum": 0},
+        "gravity": {"type": "boolean"},
+        "gravityTurns": {"type": "integer", "minimum": 0},
+        "wonderRoom": {"type": "boolean"},
+        "wonderRoomTurns": {"type": "integer", "minimum": 0},
+        "magicRoom": {"type": "boolean"},
+        "magicRoomTurns": {"type": "integer", "minimum": 0}
+      },
+      "required": ["tailwind", "trickRoom", "gravity", "wonderRoom", "magicRoom"]
+    },
+    "Action": {
+      "type": "object",
+      "properties": {
+        "type": {"type": "string", "enum": ["move", "switch", "tera", "mega", "zmove", "dynamax", "pass"]},
+        "target": {"type": "string"},
+        "move": {"type": "string"},
+        "pokemon": {"type": "integer"},
+        "teraType": {"type": "string"}
+      },
+      "required": ["type"]
+    },
+    "BattleLogEntry": {
+      "type": "object",
+      "properties": {
+        "turn": {"type": "integer", "minimum": 0},
+        "action": {"type": "string"},
+        "player": {"type": "string", "enum": ["p1", "p2", "system"]},
+        "details": {"type": "object"}
+      },
+      "required": ["turn", "action", "player"]
+    },
+    "OpponentModel": {
+      "type": "object",
+      "properties": {
+        "evDistributions": {"type": "object"},
+        "itemDistributions": {"type": "object"},
+        "teraDistributions": {"type": "object"},
+        "moveDistributions": {"type": "object"},
+        "revealedSets": {"type": "object"},
+        "likelyArchetype": {"type": "string"},
+        "playstyle": {"type": "string", "enum": ["aggressive", "defensive", "balanced", "stall", "hyperoffense"]}
+      },
+      "required": ["evDistributions", "itemDistributions", "teraDistributions", "moveDistributions", "revealedSets"]
+    }
+  }
+}

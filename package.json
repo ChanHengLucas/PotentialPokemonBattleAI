@@ -1,0 +1,26 @@
+{
+  "name": "pokeai",
+  "version": "1.0.0",
+  "description": "Competitive Pokémon Team-Building and Real-Time Battle Agent",
+  "main": "index.js",
+  "scripts": {
+    "dev": "concurrently \"npm run dev:client\" \"npm run dev:calc\"",
+    "dev:client": "cd client && npm run dev",
+    "dev:calc": "cd services/calc && npm run dev",
+    "build": "npm run build:client && npm run build:calc",
+    "build:client": "cd client && npm run build",
+    "build:calc": "cd services/calc && npm run build",
+    "test": "npm run test:client && npm run test:calc",
+    "test:client": "cd client && npm test",
+    "test:calc": "cd services/calc && npm test"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2",
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.0"
+  },
+  "workspaces": [
+    "client",
+    "services/calc"
+  ]
+}
