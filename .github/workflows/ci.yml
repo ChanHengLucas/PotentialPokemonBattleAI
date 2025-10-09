@@ -23,6 +23,10 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
+        cache-dependency-path: |
+          package-lock.json
+          services/calc/package-lock.json
+          client/package-lock.json
     
     - name: Use Python ${{ matrix.python-version }}
       uses: actions/setup-python@v4
@@ -83,6 +87,10 @@ jobs:
       with:
         node-version: 18.x
         cache: 'npm'
+        cache-dependency-path: |
+          package-lock.json
+          services/calc/package-lock.json
+          client/package-lock.json
     
     - name: Use Python 3.9
       uses: actions/setup-python@v4

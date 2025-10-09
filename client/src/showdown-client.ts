@@ -1,6 +1,6 @@
 import WebSocket from 'ws';
 import { BattleStateManager } from './battle-state';
-import { Action } from '../../data/schemas/battle-state';
+import { Action } from './schemas/battle-state';
 
 export class ShowdownClient {
   private ws: WebSocket | null = null;

@@ -1,6 +1,6 @@
 import { ShowdownClient } from './showdown-client';
 import { BattleStateManager } from './battle-state';
-import { Action } from '../data/schemas/battle-state';
+import { Action } from './schemas/battle-state';
 import * as fs from 'fs';
 import * as path from 'path';
 
@@ -110,16 +110,16 @@ class LadderClient {
       
       if (pokemon.evs) {
         const evString = Object.entries(pokemon.evs)
-          .filter(([_, value]) => value > 0)
+          .filter(([_, value]) => (value as number) > 0)
           .map(([stat, value]) => `${value} ${stat.toUpperCase()}`)
           .join(' / ');
         if (evString) {
-          showdownTeam += `\nEVs: ${evString}``;
+          showdownTeam += '\nEVs: ' + evString;
         }
       }
       
       if (pokemon.nature) {
-        showdownTeam += `\n${pokemon.nature} Nature`;
+        showdownTeam += '\n' + pokemon.nature + ' Nature';
       }
       
       if (pokemon.moves && pokemon.moves.length > 0) {
@@ -274,7 +274,7 @@ class LadderClient {
         throw new Error(`Calc service error: ${response.statusText}`);
       }
       
-      const data = await response.json();
+      const data = await response.json() as any;
       return data.results;
     } catch (error) {
       console.error('Error getting calc results:', error);
@@ -297,7 +297,7 @@ class LadderClient {
         throw new Error(`Policy service error: ${response.statusText}`);
       }
       
-      const data = await response.json();
+      const data = await response.json() as any;
       return data.action;
     } catch (error) {
       console.error('Error getting policy recommendation:', error);

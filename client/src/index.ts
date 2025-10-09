@@ -31,5 +31,6 @@ if (require.main === module) {
   main().catch(console.error);
 }
 
-export { ShowdownClient, BattleStateManager } from './battle-state';
+export { BattleStateManager } from './battle-state';
+export { ShowdownClient } from './showdown-client';
 export { ShowdownClient as default } from './showdown-client';

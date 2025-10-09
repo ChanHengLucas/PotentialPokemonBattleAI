@@ -11,7 +11,7 @@ import {
   StatusCondition,
   Move,
   Team
-} from '../../data/schemas/battle-state';
+} from './schemas/battle-state';
 
 export class BattleStateManager {
   private state: BattleState;
@@ -201,7 +201,7 @@ export class BattleStateManager {
         throw new Error(`Calc service error: ${response.statusText}`);
       }
       
-      return await response.json();
+      return await response.json() as any[];
     } catch (error) {
       console.error('Error getting calc results:', error);
       return [];
@@ -223,7 +223,7 @@ export class BattleStateManager {
         throw new Error(`Policy service error: ${response.statusText}`);
       }
       
-      return await response.json();
+      return await response.json() as any[];
     } catch (error) {
       console.error('Error getting policy recommendation:', error);
       return null;
