@@ -1,169 +1,115 @@
 #!/bin/bash
-
 # PokéAI Smoke Test Script
+# Runs comprehensive smoke tests including pretrain assertions, wiring tests, and proof run
 
 set -e
 
-echo "Running PokéAI smoke tests..."
+# Colors for output
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+NC='\033[0m' # No Color
 
-# Check if services are running
-echo "Checking service health..."
-
-# Check calc service
-if curl -s http://localhost:3001/health > /dev/null; then
-    echo "✓ Calc service is healthy"
-else
-    echo "✗ Calc service is not responding"
-    echo "Please start services with: ./scripts/dev.sh"
-    exit 1
-fi
-
-# Check policy service
-if curl -s http://localhost:8000/health > /dev/null; then
-    echo "✓ Policy service is healthy"
-else
-    echo "✗ Policy service is not responding"
-    echo "Please start services with: ./scripts/dev.sh"
-    exit 1
-fi
-
-# Check team builder service
-if curl -s http://localhost:8001/health > /dev/null; then
-    echo "✓ Team builder service is healthy"
-else
-    echo "✗ Team builder service is not responding"
-    echo "Please start services with: ./scripts/dev.sh"
-    exit 1
-fi
-
-echo ""
-echo "Building a team..."
-
-# Build a team
-if ./scripts/build-team.sh gen9ou; then
-    echo "✓ Team built successfully"
-else
-    echo "✗ Team building failed"
-    exit 1
-fi
-
-echo ""
-echo "Running offline test turn..."
-
-# Create a simple test battle state
-cat > /tmp/test_battle.json << 'EOF'
-{
-  "id": "test-battle",
-  "format": "gen9ou",
-  "turn": 1,
-  "phase": "battle",
-  "p1": {
-    "name": "Player1",
-    "team": {"pokemon": [], "format": "gen9ou"},
-    "bench": [],
-    "side": {
-      "hazards": {"spikes": 0, "toxicSpikes": 0, "stealthRock": false, "stickyWeb": false},
-      "screens": {"reflect": false, "lightScreen": false, "auroraVeil": false},
-      "sideConditions": {
-        "tailwind": false,
-        "trickRoom": false,
-        "gravity": false,
-        "wonderRoom": false,
-        "magicRoom": false
-      }
-    },
-    "active": {
-      "species": "Dragapult",
-      "level": 100,
-      "hp": 100,
-      "maxhp": 100,
-      "boosts": {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "accuracy": 0, "evasion": 0},
-      "moves": [{"id": "shadowball", "name": "Shadow Ball", "pp": 16, "maxpp": 16}],
-      "ability": "Clear Body",
-      "position": "active"
-    }
-  },
-  "p2": {
-    "name": "Player2",
-    "team": {"pokemon": [], "format": "gen9ou"},
-    "bench": [],
-    "side": {
-      "hazards": {"spikes": 0, "toxicSpikes": 0, "stealthRock": false, "stickyWeb": false},
-      "screens": {"reflect": false, "lightScreen": false, "auroraVeil": false},
-      "sideConditions": {
-        "tailwind": false,
-        "trickRoom": false,
-        "gravity": false,
-        "wonderRoom": false,
-        "magicRoom": false
-      }
-    },
-    "active": {
-      "species": "Garchomp",
-      "level": 100,
-      "hp": 100,
-      "maxhp": 100,
-      "boosts": {"atk": 0, "def": 0, "spa": 0, "spd": 0, "spe": 0, "accuracy": 0, "evasion": 0},
-      "moves": [{"id": "earthquake", "name": "Earthquake", "pp": 16, "maxpp": 16}],
-      "ability": "Rough Skin",
-      "position": "active"
-    }
-  },
-  "field": {
-    "hazards": {"spikes": 0, "toxicSpikes": 0, "stealthRock": false, "stickyWeb": false},
-    "screens": {"reflect": false, "lightScreen": false, "auroraVeil": false},
-    "sideConditions": {
-      "tailwind": false,
-      "trickRoom": false,
-      "gravity": false,
-      "wonderRoom": false,
-      "magicRoom": false
-    }
-  },
-  "log": [],
-  "lastActions": {},
-  "opponentModel": {
-    "evDistributions": {},
-    "itemDistributions": {},
-    "teraDistributions": {},
-    "moveDistributions": {},
-    "revealedSets": {}
-  }
+print_status() {
+    echo -e "${BLUE}[INFO]${NC} $1"
 }
-EOF
 
-# Test calc service
-echo "Testing calc service..."
-if curl -s -X POST http://localhost:3001/batch-calc \
-    -H "Content-Type: application/json" \
-    -d '{"state": '$(cat /tmp/test_battle.json)', "actions": [{"type": "move", "move": "shadowball"}]}' \
-    | jq -e '.results | length > 0' > /dev/null; then
-    echo "✓ Calc service test passed"
-else
-    echo "✗ Calc service test failed"
+print_success() {
+    echo -e "${GREEN}[SUCCESS]${NC} $1"
+}
+
+print_warning() {
+    echo -e "${YELLOW}[WARNING]${NC} $1"
+}
+
+print_error() {
+    echo -e "${RED}[ERROR]${NC} $1"
+}
+
+# Check if we're in the project root
+if [ ! -f "package.json" ] || [ ! -d "services" ]; then
+    print_error "Please run this script from the project root directory"
     exit 1
 fi
 
-# Test policy service
-echo "Testing policy service..."
-if curl -s -X POST http://localhost:8000/policy \
-    -H "Content-Type: application/json" \
-    -d '{"battleState": '$(cat /tmp/test_battle.json)', "calcResults": [{"action": {"type": "move", "move": "shadowball"}, "accuracy": 100, "speedCheck": {"faster": true, "speedDiff": 20}, "priority": 0}]}' \
-    | jq -e '.action' > /dev/null; then
-    echo "✓ Policy service test passed"
-else
-    echo "✗ Policy service test failed"
+print_status "Starting PokéAI Smoke Tests..."
+print_status "=" * 60
+
+# Step 1: Check environment
+print_status "Step 1: Checking environment..."
+if [ ! -d ".venv-policy" ] || [ ! -d ".venv-teambuilder" ]; then
+    print_error "Virtual environments not found. Please run ./scripts/setup_env.sh first"
     exit 1
 fi
+print_success "Environment check passed"
 
-# Clean up
-rm -f /tmp/test_battle.json
+# Step 2: Check ports
+print_status "Step 2: Checking ports..."
+if ! ./scripts/check_ports.sh; then
+    print_error "Port check failed. Please free occupied ports or start services"
+    exit 1
+fi
+print_success "Port check passed"
 
-echo ""
-echo "All smoke tests passed! ✓"
-echo ""
-echo "PokéAI is ready for:"
-echo "  - Team building: ./scripts/build-team.sh"
-echo "  - Ladder battles: node client/src/ladder.ts --format gen9ou --maxGames 3"
-echo "  - Self-play: python sims/selfplay/run.py --games 50"
-echo "  - Team evaluation: python sims/selfplay/eval_teamset.py --candidates 8 --games 20"
+# Step 3: Check service health
+print_status "Step 3: Checking service health..."
+if ! ./scripts/health.sh; then
+    print_error "Service health check failed. Please start services with ./scripts/dev.sh"
+    exit 1
+fi
+print_success "Service health check passed"
+
+# Step 4: Run pretrain assertions
+print_status "Step 4: Running pretrain assertions..."
+if ! source .venv-policy/bin/activate && python scripts/pretrain_smoke.py; then
+    print_error "Pre-train assertions failed"
+    exit 1
+fi
+print_success "Pre-train assertions passed"
+
+# Step 5: Run wiring tests
+print_status "Step 5: Running wiring tests..."
+if ! source .venv-teambuilder/bin/activate && python -m pytest tests/wiring/test_real_paths.py -v; then
+    print_error "Wiring tests failed"
+    exit 1
+fi
+print_success "Wiring tests passed"
+
+# Step 6: Run 5-game self-play with explain-update
+print_status "Step 6: Running 5-game self-play with explain-update..."
+if ! source .venv-policy/bin/activate && python scripts/training_orchestrator.py stage A --games 5 --explain-update; then
+    print_error "Self-play test failed"
+    exit 1
+fi
+print_success "Self-play test passed"
+
+# Step 7: Verify artifacts were created
+print_status "Step 7: Verifying proof run artifacts..."
+
+# Check for update trace
+if [ ! -f "data/reports/update_trace_stage_baseline.json" ]; then
+    print_error "Update trace not found"
+    exit 1
+fi
+print_success "Update trace found"
+
+# Check for training diagnostics
+if [ ! -f "data/reports/training_diagnostics.json" ]; then
+    print_error "Training diagnostics not found"
+    exit 1
+fi
+print_success "Training diagnostics found"
+
+# Check for checkpoint
+if [ ! -L "models/checkpoints/latest.ckpt" ]; then
+    print_error "Latest checkpoint symlink not found"
+    exit 1
+fi
+print_success "Latest checkpoint found"
+
+print_success "All smoke tests passed! 🎉"
+print_status "Artifacts created:"
+print_status "  - data/reports/update_trace_stage_baseline.json"
+print_status "  - data/reports/training_diagnostics.json"
+print_status "  - models/checkpoints/latest.ckpt"

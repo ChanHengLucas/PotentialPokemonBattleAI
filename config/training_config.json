@@ -1,0 +1,133 @@
+{
+  "seed": 1337,
+  "num_games_per_stage": 10000,
+  "time_budget_ms_per_turn": 500,
+  "calc_service_url": "http://localhost:3001",
+  "policy_service_url": "http://localhost:8000",
+  "teambuilder_service_url": "http://localhost:8001",
+  "format": "gen9ou",
+  "include_tera": false,
+  "log_dir": "data/logs/train",
+  "checkpoint_dir": "models/checkpoints",
+  
+  "stage_a_games": 10000,
+  "stage_b_games": 15000,
+  "stage_c_games": 20000,
+  "stage_d_games": 25000,
+  
+  "opponent_pool_size": 10,
+  "exploration_temperature": 0.1,
+  "evaluation_frequency": 1000,
+  
+  "safety_rules_enabled": true,
+  "max_pp_waste_rate": 0.1,
+  "preserve_unique_roles": true,
+  
+  "curriculum": {
+    "stage_a": {
+      "name": "baseline",
+      "description": "No tera, limited volatiles (exclude Rooms/Gravity initially), hazards/screens ON",
+      "include_tera": false,
+      "volatiles": ["hazards", "screens", "weather", "terrain"],
+      "abilities": ["basic"],
+      "items": ["basic"],
+      "training_method": "imitation_learning"
+    },
+    "stage_b": {
+      "name": "expanded_volatiles",
+      "description": "Add Encore/Taunt/Torment/Disable, Trick/Switcheroo items, more abilities/items",
+      "include_tera": false,
+      "volatiles": ["hazards", "screens", "weather", "terrain", "rooms", "gravity"],
+      "abilities": ["expanded"],
+      "items": ["expanded"],
+      "training_method": "offline_rl"
+    },
+    "stage_c": {
+      "name": "tera_enabled",
+      "description": "Enable terastallization; expand action space; add post-tera typing and calc features",
+      "include_tera": true,
+      "volatiles": ["all"],
+      "abilities": ["all"],
+      "items": ["all"],
+      "training_method": "offline_rl"
+    },
+    "stage_d": {
+      "name": "beliefs_long_horizon",
+      "description": "Strengthen opponent belief modeling, add endgame heuristics, extend rollout length",
+      "include_tera": true,
+      "volatiles": ["all"],
+      "abilities": ["all"],
+      "items": ["all"],
+      "belief_modeling": true,
+      "long_horizon": true,
+      "training_method": "self_play"
+    }
+  },
+  
+  "opponent_pool": {
+    "scripted_heuristics": {
+      "weight": 0.2,
+      "description": "Rule-based opponents with different playstyles"
+    },
+    "prior_checkpoints": {
+      "weight": 0.3,
+      "description": "Previous model checkpoints for self-play"
+    },
+    "legal_random_bots": {
+      "weight": 0.1,
+      "description": "Random legal action selection"
+    },
+    "stall_archetype": {
+      "weight": 0.15,
+      "description": "Defensive stall teams"
+    },
+    "balance_archetype": {
+      "weight": 0.15,
+      "description": "Balanced offensive/defensive teams"
+    },
+    "hyper_offense_archetype": {
+      "weight": 0.1,
+      "description": "Aggressive offensive teams"
+    }
+  },
+  
+  "safety_rules": {
+    "never_choose_struggle": true,
+    "avoid_zero_accuracy": true,
+    "preserve_unique_roles": true,
+    "avoid_defensive_tera": true,
+    "respect_move_timers": true,
+    "max_pp_waste_rate": 0.1
+  },
+  
+  "logging": {
+    "per_turn_log": true,
+    "state_hash": true,
+    "legal_actions": true,
+    "calc_features": true,
+    "policy_logits": true,
+    "chosen_action": true,
+    "safety_overrides": true,
+    "rng_seed": true,
+    "total_latency": true
+  },
+  
+  "metrics": {
+    "win_percentage": true,
+    "average_turns": true,
+    "endgame_conversion": true,
+    "hazard_efficiency": true,
+    "switch_efficiency": true,
+    "tera_timing_accuracy": true,
+    "pp_waste_rate": true,
+    "matchup_breakdown": true
+  },
+  
+  "data_sources": {
+    "dex_data": "data/pokemon/",
+    "format_data": "data/formats/",
+    "usage_data": "data/usage/",
+    "replay_buffer": "data/replays/",
+    "selfplay_buffer": "data/selfplay/"
+  }
+}

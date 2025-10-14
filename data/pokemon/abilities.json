@@ -1,0 +1,132 @@
+{
+  "abilities": {
+    "intimidate": {
+      "name": "Intimidate",
+      "effect": "lowers_attack",
+      "trigger": "on_switch_in",
+      "description": "Lowers the opponent's Attack stat by one stage when switching in"
+    },
+    "regenerator": {
+      "name": "Regenerator",
+      "effect": "heal_on_switch",
+      "trigger": "on_switch_out",
+      "description": "Restores 1/3 of max HP when switching out"
+    },
+    "rough_skin": {
+      "name": "Rough Skin",
+      "effect": "contact_damage",
+      "trigger": "on_contact",
+      "description": "Damages the attacker when hit by a contact move"
+    },
+    "flash_fire": {
+      "name": "Flash Fire",
+      "effect": "fire_immunity",
+      "trigger": "on_fire_move",
+      "description": "Immune to Fire moves and boosts Fire move power by 50%"
+    },
+    "levitate": {
+      "name": "Levitate",
+      "effect": "ground_immunity",
+      "trigger": "passive",
+      "description": "Immune to Ground-type moves"
+    },
+    "clear_body": {
+      "name": "Clear Body",
+      "effect": "stat_immunity",
+      "trigger": "passive",
+      "description": "Prevents stat reduction from opponent's moves or abilities"
+    },
+    "infiltrator": {
+      "name": "Infiltrator",
+      "effect": "bypass_screens",
+      "trigger": "passive",
+      "description": "Ignores Reflect, Light Screen, and Safeguard"
+    },
+    "cursed_body": {
+      "name": "Cursed Body",
+      "effect": "disable_move",
+      "trigger": "on_damage",
+      "chance": 30,
+      "description": "30% chance to disable the move that caused damage"
+    },
+    "merciless": {
+      "name": "Merciless",
+      "effect": "critical_poisoned",
+      "trigger": "on_attack",
+      "description": "Always critical hits against poisoned targets"
+    },
+    "limber": {
+      "name": "Limber",
+      "effect": "paralysis_immunity",
+      "trigger": "passive",
+      "description": "Immune to paralysis"
+    },
+    "anticipation": {
+      "name": "Anticipation",
+      "effect": "warn_super_effective",
+      "trigger": "on_switch_in",
+      "description": "Warns if opponent has a super-effective move"
+    },
+    "pressure": {
+      "name": "Pressure",
+      "effect": "double_pp_cost",
+      "trigger": "on_target",
+      "description": "Opponent's moves cost 2 PP instead of 1"
+    },
+    "unnerve": {
+      "name": "Unnerve",
+      "effect": "prevent_berry",
+      "trigger": "passive",
+      "description": "Prevents opponents from eating Berries"
+    },
+    "mirror_armor": {
+      "name": "Mirror Armor",
+      "effect": "reflect_stat_drops",
+      "trigger": "on_stat_drop",
+      "description": "Reflects stat-lowering effects back to the attacker"
+    },
+    "cute_charm": {
+      "name": "Cute Charm",
+      "effect": "infatuation",
+      "trigger": "on_contact",
+      "chance": 30,
+      "description": "30% chance to infatuate opponent on contact"
+    },
+    "magic_guard": {
+      "name": "Magic Guard",
+      "effect": "no_indirect_damage",
+      "trigger": "passive",
+      "description": "Immune to indirect damage (hazards, status, weather)"
+    },
+    "unaware": {
+      "name": "Unaware",
+      "effect": "ignore_stat_changes",
+      "trigger": "passive",
+      "description": "Ignores opponent's stat changes when dealing damage"
+    },
+    "iron_barbs": {
+      "name": "Iron Barbs",
+      "effect": "contact_damage",
+      "trigger": "on_contact",
+      "description": "Damages the attacker when hit by a contact move"
+    },
+    "keen_eye": {
+      "name": "Keen Eye",
+      "effect": "accuracy_immunity",
+      "trigger": "passive",
+      "description": "Prevents accuracy reduction"
+    },
+    "sturdy": {
+      "name": "Sturdy",
+      "effect": "survive_ohko",
+      "trigger": "on_ohko",
+      "description": "Survives one-hit KO moves with 1 HP"
+    },
+    "weak_armor": {
+      "name": "Weak Armor",
+      "effect": "def_speed_trade",
+      "trigger": "on_physical_hit",
+      "description": "Lowers Defense by 1, raises Speed by 2 when hit by physical move"
+    }
+  }
+}

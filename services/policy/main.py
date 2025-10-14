@@ -6,12 +6,29 @@ import numpy as np
 from transformers import AutoTokenizer, AutoModel
 import json
 import logging
+import yaml
+from pathlib import Path
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = FastAPI(title="PokéAI Policy Service", version="1.0.0")
+
+# Load format configuration
+format_config = None
+try:
+    config_path = Path(__file__).parent.parent.parent / "config" / "formats" / "gen9ou.yaml"
+    with open(config_path, 'r') as f:
+        format_config = yaml.safe_load(f)
+    logger.info(f"Loaded format config: {format_config.get('format')} v{format_config.get('version')}")
+except Exception as e:
+    logger.warning(f"Could not load format config, using defaults: {e}")
+    format_config = {
+        "format": "gen9ou",
+        "version": "1.0.0",
+        "dexVersion": "1.0.0"
+    }
 
 # Pydantic models for request/response
 class LegalAction(BaseModel):
@@ -292,12 +309,29 @@ policy_service = PolicyService()
 
 @app.get("/health")
 async def health_check():
-    return {"status": "healthy", "service": "pokeai-policy"}
+    return {
+        "status": "healthy", 
+        "service": "pokeai-policy",
+        "format": format_config.get("format", "gen9ou"),
+        "formatVersion": format_config.get("version", "1.0.0"),
+        "dexVersion": format_config.get("dexVersion", "1.0.0")
+    }
 
 @app.post("/policy", response_model=PolicyResponse)
 async def get_policy(request: PolicyRequest):
     """Get policy recommendation for the current battle state"""
     try:
+        # Format gating - only support gen9ou for now
+        requested_format = getattr(request, 'format', 'gen9ou')
+        if requested_format != 'gen9ou':
+            raise HTTPException(
+                status_code=501, 
+                detail={
+                    "error": "Format not implemented",
+                    "supportedFormats": ["gen9ou"],
+                    "requestedFormat": requested_format
+                }
+            )
         logger.info(f"Policy request for battle {request.battleState.get('id', 'unknown')}")
         
         response = policy_service.predict_action(

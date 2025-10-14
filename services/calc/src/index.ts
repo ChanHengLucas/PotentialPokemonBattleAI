@@ -2,6 +2,9 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import morgan from 'morgan';
+import fs from 'fs';
+import path from 'path';
+import yaml from 'js-yaml';
 import { DamageCalculator } from './calculator';
 import { BattleState, LegalAction } from './schemas/battle-state';
 
@@ -16,12 +19,30 @@ app.use(express.json({ limit: '10mb' }));
 
 const calculator = new DamageCalculator();
 
+// Load format configuration
+let formatConfig: any = null;
+try {
+  const configPath = path.join(__dirname, '../../../config/formats/gen9ou.yaml');
+  const configFile = fs.readFileSync(configPath, 'utf8');
+  formatConfig = yaml.load(configFile);
+  console.log(`Loaded format config: ${formatConfig?.format} v${formatConfig?.version}`);
+} catch (error) {
+  console.warn('Could not load format config, using defaults:', error);
+  formatConfig = {
+    format: 'gen9ou',
+    version: '1.0.0',
+    dexVersion: '1.0.0'
+  };
+}
+
 // Health check endpoint
 app.get('/health', (req, res) => {
   res.json({ 
     status: 'healthy', 
     service: 'pokeai-calc',
-    dexVersion: '1.0.0',
+    dexVersion: formatConfig?.dexVersion || '1.0.0',
+    format: formatConfig?.format || 'gen9ou',
+    formatVersion: formatConfig?.version || '1.0.0',
     activeFormats: ['gen9ou', 'gen8ou', 'gen7ou']
   });
 });
@@ -29,10 +50,20 @@ app.get('/health', (req, res) => {
 // Main calculation endpoint
 app.post('/calculate', async (req, res) => {
   try {
-    const { battleState, actions }: { battleState: BattleState; actions: LegalAction[] } = req.body;
-    
+    const { battleState, actions, format }: { battleState: BattleState; actions: LegalAction[]; format?: string } = req.body;
+
     if (!battleState || !actions) {
       return res.status(400).json({ error: 'Missing battleState or actions' });
+    }
+
+    // Format gating - only support gen9ou for now
+    const requestedFormat = format || 'gen9ou';
+    if (requestedFormat !== 'gen9ou') {
+      return res.status(501).json({ 
+        error: 'Format not implemented', 
+        supportedFormats: ['gen9ou'],
+        requestedFormat 
+      });
     }
 
     console.log(`Calculating ${actions.length} actions for battle ${battleState.id}`);
@@ -41,7 +72,9 @@ app.post('/calculate', async (req, res) => {
     
     res.json({
       results,
-      dexVersion: '1.0.0'
+      dexVersion: formatConfig?.dexVersion || '1.0.0',
+      format: formatConfig?.format || 'gen9ou',
+      formatVersion: formatConfig?.version || '1.0.0'
     });
   } catch (error) {
     console.error('Calculation error:', error);

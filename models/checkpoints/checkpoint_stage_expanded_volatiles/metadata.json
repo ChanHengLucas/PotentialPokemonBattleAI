@@ -1,0 +1,31 @@
+{
+  "stage": "expanded_volatiles",
+  "timestamp": 1760454160.797191,
+  "config": {
+    "seed": 1337,
+    "num_games_per_stage": 20,
+    "time_budget_ms_per_turn": 500,
+    "calc_service_url": "http://localhost:3001",
+    "policy_service_url": "http://localhost:8000",
+    "teambuilder_service_url": "http://localhost:8001",
+    "format": "gen9ou",
+    "include_tera": false,
+    "log_dir": "data/logs/train",
+    "checkpoint_dir": "models/checkpoints",
+    "gradient_clip_norm": 1.0,
+    "mixed_precision": false,
+    "anomaly_detection": true,
+    "resume_from_checkpoint": true,
+    "stage_a_games": 10000,
+    "stage_b_games": 15000,
+    "stage_c_games": 20000,
+    "stage_d_games": 25000,
+    "opponent_pool_size": 10,
+    "exploration_temperature": 0.1,
+    "evaluation_frequency": 1000,
+    "safety_rules_enabled": true,
+    "max_pp_waste_rate": 0.1,
+    "preserve_unique_roles": true
+  },
+  "training_history": []
+}

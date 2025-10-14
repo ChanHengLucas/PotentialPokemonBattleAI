@@ -1,0 +1,77 @@
+{
+  "weather": {
+    "sun": {
+      "name": "Sun",
+      "duration": 5,
+      "effects": {
+        "fire_boost": 1.5,
+        "water_nerf": 0.5,
+        "solar_beam_instant": true,
+        "solar_blade_instant": true,
+        "moonlight_heal": 0.5,
+        "morning_sun_heal": 0.5,
+        "synthesis_heal": 0.5,
+        "weather_ball_type": "Fire",
+        "weather_ball_power": 100
+      },
+      "moves": ["Sunny Day"],
+      "abilities": ["Drought"]
+    },
+    "rain": {
+      "name": "Rain",
+      "duration": 5,
+      "effects": {
+        "water_boost": 1.5,
+        "fire_nerf": 0.5,
+        "thunder_accuracy": 100,
+        "hurricane_accuracy": 100,
+        "solar_beam_nerf": 0.5,
+        "solar_blade_nerf": 0.5,
+        "moonlight_heal": 0.25,
+        "morning_sun_heal": 0.25,
+        "synthesis_heal": 0.25,
+        "weather_ball_type": "Water",
+        "weather_ball_power": 100
+      },
+      "moves": ["Rain Dance"],
+      "abilities": ["Drizzle"]
+    },
+    "sandstorm": {
+      "name": "Sandstorm",
+      "duration": 5,
+      "effects": {
+        "rock_spdef_boost": 1.5,
+        "damage_per_turn": 0.0625,
+        "weather_ball_type": "Rock",
+        "weather_ball_power": 100,
+        "damage_immunity": ["Rock", "Ground", "Steel"]
+      },
+      "moves": ["Sandstorm"],
+      "abilities": ["Sand Stream"]
+    },
+    "hail": {
+      "name": "Hail",
+      "duration": 5,
+      "effects": {
+        "ice_immunity": true,
+        "damage_per_turn": 0.0625,
+        "weather_ball_type": "Ice",
+        "weather_ball_power": 100,
+        "damage_immunity": ["Ice"]
+      },
+      "moves": ["Hail"],
+      "abilities": ["Snow Warning"]
+    },
+    "snow": {
+      "name": "Snow",
+      "duration": 5,
+      "effects": {
+        "ice_def_boost": 1.5,
+        "weather_ball_type": "Ice",
+        "weather_ball_power": 100
+      },
+      "moves": ["Snowscape"],
+      "abilities": ["Snow Warning"]
+    }
+  }
+}

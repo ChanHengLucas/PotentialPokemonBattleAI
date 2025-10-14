@@ -1,0 +1,257 @@
+{
+  "moves": {
+    "shadowball": {
+      "name": "Shadow Ball",
+      "type": "Ghost",
+      "category": "Special",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 15,
+      "priority": 0,
+      "effects": {
+        "secondary": {
+          "chance": 20,
+          "effect": "spdef_drop"
+        }
+      }
+    },
+    "earthquake": {
+      "name": "Earthquake",
+      "type": "Ground",
+      "category": "Physical",
+      "power": 100,
+      "accuracy": 100,
+      "pp": 10,
+      "priority": 0,
+      "effects": {
+        "hits_underground": true
+      }
+    },
+    "dragonpulse": {
+      "name": "Dragon Pulse",
+      "type": "Dragon",
+      "category": "Special",
+      "power": 85,
+      "accuracy": 100,
+      "pp": 10,
+      "priority": 0
+    },
+    "dragonclaw": {
+      "name": "Dragon Claw",
+      "type": "Dragon",
+      "category": "Physical",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 15,
+      "priority": 0
+    },
+    "uturn": {
+      "name": "U-turn",
+      "type": "Bug",
+      "category": "Physical",
+      "power": 70,
+      "accuracy": 100,
+      "pp": 20,
+      "priority": 0,
+      "effects": {
+        "switch_after": true
+      }
+    },
+    "magmastorm": {
+      "name": "Magma Storm",
+      "type": "Fire",
+      "category": "Special",
+      "power": 100,
+      "accuracy": 75,
+      "pp": 5,
+      "priority": 0,
+      "effects": {
+        "trapping": true,
+        "damage_over_time": 6
+      }
+    },
+    "earthpower": {
+      "name": "Earth Power",
+      "type": "Ground",
+      "category": "Special",
+      "power": 90,
+      "accuracy": 100,
+      "pp": 10,
+      "priority": 0,
+      "effects": {
+        "secondary": {
+          "chance": 10,
+          "effect": "spdef_drop"
+        }
+      }
+    },
+    "voltswitch": {
+      "name": "Volt Switch",
+      "type": "Electric",
+      "category": "Special",
+      "power": 70,
+      "accuracy": 100,
+      "pp": 20,
+      "priority": 0,
+      "effects": {
+        "switch_after": true
+      }
+    },
+    "hydropump": {
+      "name": "Hydro Pump",
+      "type": "Water",
+      "category": "Special",
+      "power": 110,
+      "accuracy": 80,
+      "pp": 5,
+      "priority": 0
+    },
+    "scald": {
+      "name": "Scald",
+      "type": "Water",
+      "category": "Special",
+      "power": 80,
+      "accuracy": 100,
+      "pp": 15,
+      "priority": 0,
+      "effects": {
+        "secondary": {
+          "chance": 30,
+          "effect": "burn"
+        }
+      }
+    },
+    "toxic": {
+      "name": "Toxic",
+      "type": "Poison",
+      "category": "Status",
+      "power": 0,
+      "accuracy": 90,
+      "pp": 10,
+      "priority": 0,
+      "effects": {
+        "status": "badly_poisoned"
+      }
+    },
+    "stealthrock": {
+      "name": "Stealth Rock",
+      "type": "Rock",
+      "category": "Status",
+      "power": 0,
+      "accuracy": 100,
+      "pp": 20,
+      "priority": 0,
+      "effects": {
+        "hazard": "stealthrock"
+      }
+    },
+    "spikes": {
+      "name": "Spikes",
+      "type": "Ground",
+      "category": "Status",
+      "power": 0,
+      "accuracy": 100,
+      "pp": 20,
+      "priority": 0,
+      "effects": {
+        "hazard": "spikes"
+      }
+    },
+    "reflect": {
+      "name": "Reflect",
+      "type": "Psychic",
+      "category": "Status",
+      "power": 0,
+      "accuracy": 100,
+      "pp": 20,
+      "priority": 0,
+      "effects": {
+        "screen": "reflect"
+      }
+    },
+    "lightscreen": {
+      "name": "Light Screen",
+      "type": "Psychic",
+      "category": "Status",
+      "power": 0,
+      "accuracy": 100,
+      "pp": 30,
+      "priority": 0,
+      "effects": {
+        "screen": "lightscreen"
+      }
+    },
+    "tailwind": {
+      "name": "Tailwind",
+      "type": "Flying",
+      "category": "Status",
+      "power": 0,
+      "accuracy": 100,
+      "pp": 15,
+      "priority": 0,
+      "effects": {
+        "speed_boost": 2
+      }
+    },
+    "trickroom": {
+      "name": "Trick Room",
+      "type": "Psychic",
+      "category": "Status",
+      "power": 0,
+      "accuracy": 100,
+      "pp": 5,
+      "priority": -7,
+      "effects": {
+        "field_effect": "trickroom"
+      }
+    },
+    "protect": {
+      "name": "Protect",
+      "type": "Normal",
+      "category": "Status",
+      "power": 0,
+      "accuracy": 100,
+      "pp": 10,
+      "priority": 4,
+      "effects": {
+        "protect": true
+      }
+    },
+    "substitute": {
+      "name": "Substitute",
+      "type": "Normal",
+      "category": "Status",
+      "power": 0,
+      "accuracy": 100,
+      "pp": 10,
+      "priority": 0,
+      "effects": {
+        "substitute": true
+      }
+    },
+    "roost": {
+      "name": "Roost",
+      "type": "Flying",
+      "category": "Status",
+      "power": 0,
+      "accuracy": 100,
+      "pp": 10,
+      "priority": 0,
+      "effects": {
+        "heal": 0.5
+      }
+    },
+    "recover": {
+      "name": "Recover",
+      "type": "Normal",
+      "category": "Status",
+      "power": 0,
+      "accuracy": 100,
+      "pp": 10,
+      "priority": 0,
+      "effects": {
+        "heal": 0.5
+      }
+    }
+  }
+}

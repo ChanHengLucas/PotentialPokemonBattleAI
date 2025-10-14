@@ -1,0 +1,154 @@
+{
+  "pokemon": {
+    "dragapult": {
+      "name": "Dragapult",
+      "types": ["Dragon", "Ghost"],
+      "baseStats": {
+        "hp": 88,
+        "atk": 120,
+        "def": 75,
+        "spa": 100,
+        "spd": 75,
+        "spe": 142
+      },
+      "abilities": ["Clear Body", "Infiltrator", "Cursed Body"],
+      "commonMoves": ["Shadow Ball", "Dragon Pulse", "U-turn", "Dragon Dance"],
+      "roles": ["sweeper", "wallbreaker", "speed_control"]
+    },
+    "garchomp": {
+      "name": "Garchomp",
+      "types": ["Dragon", "Ground"],
+      "baseStats": {
+        "hp": 108,
+        "atk": 130,
+        "def": 95,
+        "spa": 80,
+        "spd": 85,
+        "spe": 102
+      },
+      "abilities": ["Sand Veil", "Rough Skin"],
+      "commonMoves": ["Earthquake", "Dragon Claw", "Stone Edge", "Swords Dance"],
+      "roles": ["sweeper", "wallbreaker", "hazard_setter"]
+    },
+    "landorus-therian": {
+      "name": "Landorus-Therian",
+      "types": ["Ground", "Flying"],
+      "baseStats": {
+        "hp": 89,
+        "atk": 145,
+        "def": 90,
+        "spa": 105,
+        "spd": 80,
+        "spe": 91
+      },
+      "abilities": ["Intimidate"],
+      "commonMoves": ["Earthquake", "U-turn", "Stone Edge", "Stealth Rock"],
+      "roles": ["wallbreaker", "hazard_setter", "pivot"]
+    },
+    "heatran": {
+      "name": "Heatran",
+      "types": ["Fire", "Steel"],
+      "baseStats": {
+        "hp": 91,
+        "atk": 90,
+        "def": 106,
+        "spa": 130,
+        "spd": 106,
+        "spe": 77
+      },
+      "abilities": ["Flash Fire", "Flame Body"],
+      "commonMoves": ["Magma Storm", "Earth Power", "Flash Cannon", "Toxic"],
+      "roles": ["wall", "hazard_setter", "wallbreaker"]
+    },
+    "rotom-wash": {
+      "name": "Rotom-Wash",
+      "types": ["Electric", "Water"],
+      "baseStats": {
+        "hp": 50,
+        "atk": 65,
+        "def": 107,
+        "spa": 105,
+        "spd": 107,
+        "spe": 86
+      },
+      "abilities": ["Levitate"],
+      "commonMoves": ["Volt Switch", "Hydro Pump", "Will-O-Wisp", "Pain Split"],
+      "roles": ["pivot", "wall", "hazard_removal"]
+    },
+    "toxapex": {
+      "name": "Toxapex",
+      "types": ["Poison", "Water"],
+      "baseStats": {
+        "hp": 50,
+        "atk": 63,
+        "def": 152,
+        "spa": 53,
+        "spd": 142,
+        "spe": 35
+      },
+      "abilities": ["Merciless", "Regenerator", "Limber"],
+      "commonMoves": ["Scald", "Toxic", "Recover", "Haze"],
+      "roles": ["wall", "hazard_setter", "status_spreader"]
+    },
+    "corviknight": {
+      "name": "Corviknight",
+      "types": ["Flying", "Steel"],
+      "baseStats": {
+        "hp": 98,
+        "atk": 87,
+        "def": 105,
+        "spa": 53,
+        "spd": 85,
+        "spe": 67
+      },
+      "abilities": ["Pressure", "Unnerve", "Mirror Armor"],
+      "commonMoves": ["Brave Bird", "Iron Head", "Roost", "Defog"],
+      "roles": ["wall", "hazard_removal", "pivot"]
+    },
+    "clefable": {
+      "name": "Clefable",
+      "types": ["Fairy"],
+      "baseStats": {
+        "hp": 95,
+        "atk": 70,
+        "def": 73,
+        "spa": 95,
+        "spd": 90,
+        "spe": 60
+      },
+      "abilities": ["Cute Charm", "Magic Guard", "Unaware"],
+      "commonMoves": ["Moonblast", "Soft-Boiled", "Stealth Rock", "Thunder Wave"],
+      "roles": ["wall", "hazard_setter", "status_spreader"]
+    },
+    "ferrothorn": {
+      "name": "Ferrothorn",
+      "types": ["Grass", "Steel"],
+      "baseStats": {
+        "hp": 74,
+        "atk": 94,
+        "def": 131,
+        "spa": 54,
+        "spd": 116,
+        "spe": 20
+      },
+      "abilities": ["Iron Barbs", "Anticipation"],
+      "commonMoves": ["Power Whip", "Gyro Ball", "Stealth Rock", "Leech Seed"],
+      "roles": ["wall", "hazard_setter", "hazard_removal"]
+    },
+    "skarmory": {
+      "name": "Skarmory",
+      "types": ["Steel", "Flying"],
+      "baseStats": {
+        "hp": 65,
+        "atk": 80,
+        "def": 140,
+        "spa": 40,
+        "spd": 70,
+        "spe": 70
+      },
+      "abilities": ["Keen Eye", "Sturdy", "Weak Armor"],
+      "commonMoves": ["Brave Bird", "Iron Head", "Roost", "Defog"],
+      "roles": ["wall", "hazard_setter", "hazard_removal"]
+    }
+  }
+}

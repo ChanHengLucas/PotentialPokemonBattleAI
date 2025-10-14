@@ -1,0 +1,36 @@
+{
+  "format": "gen9ou",
+  "selfplay_games": 100,
+  "evaluation_candidates": 8,
+  "evaluation_games": 20,
+  "policy_epochs": 5,
+  "teambuilder_epochs": 5,
+  "cycle_interval": 300,
+  "max_training_cycles": 10,
+  "data_retention_days": 30,
+  "model_checkpoint_interval": 5,
+  "evaluation_metrics": [
+    "win_rate",
+    "team_synergy",
+    "move_effectiveness",
+    "prediction_accuracy"
+  ],
+  "improvement_thresholds": {
+    "min_win_rate_improvement": 0.05,
+    "min_team_score_improvement": 0.1,
+    "max_stagnation_cycles": 3
+  },
+  "data_collection": {
+    "save_battle_logs": true,
+    "save_team_compositions": true,
+    "save_move_sequences": true,
+    "save_prediction_accuracy": true
+  },
+  "model_training": {
+    "use_gpu": true,
+    "batch_size": 32,
+    "learning_rate": 0.001,
+    "early_stopping_patience": 3,
+    "validation_split": 0.2
+  }
+}

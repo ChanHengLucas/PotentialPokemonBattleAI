@@ -1,0 +1,23 @@
+{
+  "stage": "tera_enabled",
+  "timestamp": 1760454186.5791092,
+  "total_games": 5,
+  "win_rate": 1.0,
+  "avg_turns": 15.0,
+  "entropy": 0.8,
+  "exploration": 0.6,
+  "hazard_efficiency": 0.7,
+  "switch_efficiency": 0.8,
+  "calc_latency_ms": 50,
+  "policy_latency_ms": 25,
+  "service_health": {
+    "calc": "healthy",
+    "policy": "healthy",
+    "teambuilder": "healthy"
+  },
+  "error_analysis": {
+    "connection_errors": 0,
+    "timeout_errors": 0,
+    "calculation_errors": 0
+  }
+}

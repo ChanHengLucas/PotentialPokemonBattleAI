@@ -12,7 +12,8 @@
     "build:calc": "cd services/calc && npm run build",
     "test": "npm run test:client && npm run test:calc",
     "test:client": "cd client && npm test",
-    "test:calc": "cd services/calc && npm test"
+    "test:calc": "cd services/calc && npm test",
+    "smoke": "./scripts/smoke.sh"
   },
   "devDependencies": {
     "concurrently": "^8.2.2",

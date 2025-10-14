@@ -1,0 +1,153 @@
+{
+  "format": "gen9ou",
+  "name": "Generation 9 OverUsed",
+  "rules": {
+    "banned_pokemon": [
+      "Arceus",
+      "Calyrex-Ice",
+      "Calyrex-Shadow", 
+      "Dialga",
+      "Dialga-Origin",
+      "Eternatus",
+      "Giratina",
+      "Giratina-Origin",
+      "Groudon",
+      "Ho-Oh",
+      "Koraidon",
+      "Kyogre",
+      "Lugia",
+      "Lunala",
+      "Magearna",
+      "Mewtwo",
+      "Miraidon",
+      "Necrozma-Dawn-Wings",
+      "Necrozma-Dusk-Mane",
+      "Palkia",
+      "Palkia-Origin",
+      "Rayquaza",
+      "Reshiram",
+      "Solgaleo",
+      "Xerneas",
+      "Yveltal",
+      "Zacian",
+      "Zacian-Crowned",
+      "Zamazenta",
+      "Zamazenta-Crowned",
+      "Zekrom"
+    ],
+    "banned_items": [
+      "King's Rock",
+      "Razor Fang",
+      "Quick Claw",
+      "Focus Band",
+      "Lax Incense",
+      "Bright Powder"
+    ],
+    "banned_abilities": [
+      "Arena Trap",
+      "Moody",
+      "Power Construct",
+      "Sand Veil",
+      "Shadow Tag",
+      "Snow Cloak"
+    ],
+    "banned_moves": [
+      "Baton Pass",
+      "Double Team",
+      "Fissure",
+      "Guillotine",
+      "Horn Drill",
+      "Minimize",
+      "Sheer Cold"
+    ],
+    "restricted_items": {
+      "Assault Vest": "Cannot use status moves",
+      "Choice Band": "Locks into first move used",
+      "Choice Specs": "Locks into first move used", 
+      "Choice Scarf": "Locks into first move used"
+    },
+    "sleep_clause": true,
+    "species_clause": true,
+    "evasion_clause": true,
+    "ohko_clause": true,
+    "moody_clause": true,
+    "swagger_clause": true,
+    "baton_pass_clause": true
+  },
+  "weather_abilities": [
+    "Drought",
+    "Drizzle", 
+    "Sand Stream",
+    "Snow Warning"
+  ],
+  "terrain_abilities": [
+    "Electric Surge",
+    "Grassy Surge",
+    "Misty Surge",
+    "Psychic Surge"
+  ],
+  "common_teams": {
+    "balance": {
+      "description": "Balanced team with offensive and defensive elements",
+      "roles": ["wall", "wallbreaker", "sweeper", "hazard_setter", "hazard_removal", "pivot"]
+    },
+    "offense": {
+      "description": "Fast-paced offensive team",
+      "roles": ["sweeper", "wallbreaker", "hazard_setter", "speed_control"]
+    },
+    "stall": {
+      "description": "Defensive team focused on outlasting opponents",
+      "roles": ["wall", "hazard_setter", "hazard_removal", "status_spreader", "cleric"]
+    },
+    "hyper_offense": {
+      "description": "Extremely aggressive team with multiple sweepers",
+      "roles": ["sweeper", "wallbreaker", "hazard_setter", "speed_control"]
+    }
+  },
+  "tier_usage": {
+    "ou": [
+      "Dragapult",
+      "Garchomp", 
+      "Landorus-Therian",
+      "Heatran",
+      "Rotom-Wash",
+      "Toxapex",
+      "Corviknight",
+      "Clefable",
+      "Ferrothorn",
+      "Skarmory",
+      "Great Tusk",
+      "Iron Treads",
+      "Kingambit",
+      "Gholdengo",
+      "Dragonite",
+      "Baxcalibur",
+      "Roaring Moon",
+      "Iron Valiant",
+      "Iron Moth",
+      "Volcarona"
+    ],
+    "uu": [
+      "Amoonguss",
+      "Azumarill", 
+      "Breloom",
+      "Celebi",
+      "Chesnaught",
+      "Conkeldurr",
+      "Crawdaunt",
+      "Donphan",
+      "Dugtrio",
+      "Empoleon",
+      "Espeon",
+      "Gastrodon",
+      "Gengar",
+      "Gliscor",
+      "Haxorus",
+      "Heracross",
+      "Hydreigon",
+      "Jirachi",
+      "Keldeo",
+      "Krookodile"
+    ]
+  }
+}

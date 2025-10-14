@@ -1,0 +1,316 @@
+# Gen 9 OU Format Configuration
+# Single source of truth for format rules
+
+format: "gen9ou"
+name: "Generation 9 OverUsed"
+version: "1.0.0"
+dex_version: "gen9"
+
+# Format flags
+tera_allowed: false  # Will be enabled in Stage C
+level_default: 100
+iv_default: 31
+ev_max_per_stat: 252
+ev_total_max: 510
+
+# Banned Pokemon
+banned_pokemon:
+  - "Arceus"
+  - "Calyrex-Ice"
+  - "Calyrex-Shadow"
+  - "Dialga"
+  - "Dialga-Origin"
+  - "Eternatus"
+  - "Giratina"
+  - "Giratina-Origin"
+  - "Groudon"
+  - "Ho-Oh"
+  - "Koraidon"
+  - "Kyogre"
+  - "Lugia"
+  - "Lunala"
+  - "Magearna"
+  - "Mewtwo"
+  - "Miraidon"
+  - "Necrozma-Dawn-Wings"
+  - "Necrozma-Dusk-Mane"
+  - "Palkia"
+  - "Palkia-Origin"
+  - "Rayquaza"
+  - "Reshiram"
+  - "Solgaleo"
+  - "Xerneas"
+  - "Yveltal"
+  - "Zacian"
+  - "Zacian-Crowned"
+  - "Zamazenta"
+  - "Zamazenta-Crowned"
+  - "Zekrom"
+
+# Banned items
+banned_items:
+  - "King's Rock"
+  - "Razor Fang"
+  - "Quick Claw"
+  - "Focus Band"
+  - "Lax Incense"
+  - "Bright Powder"
+
+# Banned abilities
+banned_abilities:
+  - "Arena Trap"
+  - "Moody"
+  - "Power Construct"
+  - "Sand Veil"
+  - "Shadow Tag"
+  - "Snow Cloak"
+
+# Banned moves
+banned_moves:
+  - "Baton Pass"
+  - "Double Team"
+  - "Fissure"
+  - "Guillotine"
+  - "Horn Drill"
+  - "Minimize"
+  - "Sheer Cold"
+
+# Clauses
+clauses:
+  sleep_clause: true
+  species_clause: true
+  evasion_clause: true
+  ohko_clause: true
+  moody_clause: true
+  swagger_clause: true
+  baton_pass_clause: true
+
+# Restricted items (with conditions)
+restricted_items:
+  "Assault Vest":
+    restriction: "no_status_moves"
+    description: "Cannot use status moves"
+  "Choice Band":
+    restriction: "move_lock"
+    description: "Locks into first move used"
+  "Choice Specs":
+    restriction: "move_lock"
+    description: "Locks into first move used"
+  "Choice Scarf":
+    restriction: "move_lock"
+    description: "Locks into first move used"
+
+# Weather abilities
+weather_abilities:
+  - "Drought"
+  - "Drizzle"
+  - "Sand Stream"
+  - "Snow Warning"
+
+# Terrain abilities
+terrain_abilities:
+  - "Electric Surge"
+  - "Grassy Surge"
+  - "Misty Surge"
+  - "Psychic Surge"
+
+# Move restrictions by ability
+ability_move_restrictions:
+  "Prankster":
+    condition: "vs_dark_targets"
+    restriction: "status_moves_fail"
+    description: "Status moves fail against Dark targets"
+
+# Item restrictions by ability
+ability_item_restrictions:
+  "Good as Gold":
+    restriction: "blocks_status_defog"
+    description: "Blocks status moves and Defog targeting"
+
+# Move accuracy changes by condition
+accuracy_modifiers:
+  "Thunder":
+    condition: "rain"
+    accuracy: 100
+  "Hurricane":
+    condition: "rain"
+    accuracy: 100
+  "Blizzard":
+    condition: "hail"
+    accuracy: 100
+  "Solar Beam":
+    condition: "sun"
+    instant: true
+  "Solar Blade":
+    condition: "sun"
+    instant: true
+
+# Damage modifiers by weather
+weather_damage_modifiers:
+  "sun":
+    fire_boost: 1.5
+    water_nerf: 0.5
+  "rain":
+    water_boost: 1.5
+    fire_nerf: 0.5
+  "sandstorm":
+    rock_spdef_boost: 1.5
+    damage_per_turn: 0.0625
+    immune_types: ["Rock", "Ground", "Steel"]
+  "hail":
+    ice_immunity: true
+    damage_per_turn: 0.0625
+    immune_types: ["Ice"]
+  "snow":
+    ice_def_boost: 1.5
+
+# Terrain effects
+terrain_effects:
+  "electric":
+    electric_boost: 1.3
+    sleep_immunity: true
+    priority_boost: 1
+  "grassy":
+    grass_boost: 1.3
+    earthquake_nerf: 0.5
+    heal_per_turn: 0.0625
+    heal_immunity: ["Flying", "Levitating"]
+  "misty":
+    fairy_boost: 1.3
+    dragon_nerf: 0.5
+    status_immunity: true
+  "psychic":
+    psychic_boost: 1.3
+    priority_immunity: true
+
+# Hazard mechanics
+hazard_mechanics:
+  stealth_rock:
+    damage_percent: 0.125
+    immunity_items: ["Heavy-Duty Boots"]
+  spikes:
+    max_layers: 3
+    damage_per_layer: 0.125
+    immunity_types: ["Flying", "Levitating"]
+    immunity_items: ["Heavy-Duty Boots"]
+  toxic_spikes:
+    max_layers: 2
+    poison_type: "poison"
+    badly_poison_type: "badly_poisoned"
+    absorption_types: ["Poison"]
+    immunity_types: ["Flying", "Levitating"]
+  sticky_web:
+    speed_drop: 1
+    immunity_types: ["Flying", "Levitating"]
+    immunity_items: ["Heavy-Duty Boots"]
+
+# Screen mechanics
+screen_mechanics:
+  reflect:
+    damage_reduction: 0.5
+    affected_categories: ["Physical"]
+    bypass_abilities: ["Infiltrator"]
+  light_screen:
+    damage_reduction: 0.5
+    affected_categories: ["Special"]
+    bypass_abilities: ["Infiltrator"]
+  aurora_veil:
+    damage_reduction: 0.5
+    affected_categories: ["Physical", "Special"]
+    weather_requirement: "hail"
+    bypass_abilities: ["Infiltrator"]
+
+# Status mechanics
+status_mechanics:
+  burn:
+    damage_per_turn: 0.125
+    physical_damage_reduction: 0.5
+  poison:
+    damage_per_turn: 0.125
+  badly_poisoned:
+    damage_increases: true
+    base_damage: 0.125
+  paralysis:
+    speed_reduction: 0.25
+    action_failure_chance: 0.25
+  sleep:
+    wake_up_chance: 0.33
+    max_turns: 3
+  freeze:
+    thaw_chance: 0.20
+  confusion:
+    self_hit_chance: 0.33
+    max_turns: 4
+
+# Priority mechanics
+priority_mechanics:
+  priority_brackets:
+    -7: ["Roar", "Whirlwind", "Circle Throw", "Dragon Tail"]
+    -6: ["Teleport"]
+    -5: ["Ally Switch"]
+    -4: ["Protect", "Detect", "Spiky Shield", "King's Shield"]
+    -3: ["Fake Out"]
+    -2: ["Quick Guard"]
+    -1: ["Wide Guard", "Quick Guard"]
+    0: ["Most moves"]
+    1: ["Quick Attack", "Mach Punch", "Bullet Punch", "Aqua Jet", "Ice Shard", "Shadow Sneak", "Vacuum Wave", "Sucker Punch"]
+    2: ["Extreme Speed", "Feint"]
+    3: ["Fake Out"]
+    4: ["Extreme Speed"]
+    5: ["Helping Hand"]
+    6: ["Ally Switch"]
+    7: ["Roar", "Whirlwind"]
+
+# Speed mechanics
+speed_mechanics:
+  paralysis_speed_reduction: 0.25
+  tailwind_speed_multiplier: 2.0
+  trick_room_inversion: true
+  speed_tie_randomization: true
+
+# Contact mechanics
+contact_mechanics:
+  rough_skin:
+    damage_percent: 0.125
+  iron_barbs:
+    damage_percent: 0.125
+  rocky_helmet:
+    damage_percent: 0.25
+  static:
+    paralysis_chance: 0.30
+  flame_body:
+    burn_chance: 0.30
+  poison_point:
+    poison_chance: 0.30
+  effect_spore:
+    status_chance: 0.30
+
+# Multi-hit mechanics
+multihit_mechanics:
+  loaded_dice:
+    hit_count_boost: true
+    distribution_shift: 1
+  per_hit_effects:
+    - "Rocky Helmet"
+    - "Rough Skin"
+    - "Iron Barbs"
+    - "Static"
+    - "Flame Body"
+    - "Poison Point"
+    - "Effect Spore"
+
+# PP mechanics
+pp_mechanics:
+  pressure_doubles_consumption: true
+  struggle_when_no_pp: true
+  struggle_power: 50
+  struggle_accuracy: 100
+  struggle_recoil: 0.25
+
+# Tera mechanics (when enabled)
+tera_mechanics:
+  one_time_use: true
+  typing_change: true
+  stab_recalculation: true
+  resistance_recalculation: true
+  action_space_expansion: true

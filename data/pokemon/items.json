@@ -1,0 +1,130 @@
+{
+  "items": {
+    "leftovers": {
+      "name": "Leftovers",
+      "effect": "heal_per_turn",
+      "heal_percent": 0.0625,
+      "description": "Restores 1/16 of max HP each turn"
+    },
+    "life_orb": {
+      "name": "Life Orb",
+      "effect": "boost_damage",
+      "damage_boost": 1.3,
+      "recoil_percent": 0.1,
+      "description": "Boosts damage by 30% but causes 10% recoil"
+    },
+    "choice_band": {
+      "name": "Choice Band",
+      "effect": "lock_move",
+      "stat_boost": {"atk": 1.5},
+      "description": "Boosts Attack by 50% but locks into first move used"
+    },
+    "choice_specs": {
+      "name": "Choice Specs",
+      "effect": "lock_move",
+      "stat_boost": {"spa": 1.5},
+      "description": "Boosts Special Attack by 50% but locks into first move used"
+    },
+    "choice_scarf": {
+      "name": "Choice Scarf",
+      "effect": "lock_move",
+      "stat_boost": {"spe": 1.5},
+      "description": "Boosts Speed by 50% but locks into first move used"
+    },
+    "focus_sash": {
+      "name": "Focus Sash",
+      "effect": "survive_ohko",
+      "trigger": "on_ohko",
+      "description": "Survives one-hit KO moves with 1 HP (one time use)"
+    },
+    "air_balloon": {
+      "name": "Air Balloon",
+      "effect": "ground_immunity",
+      "trigger": "passive",
+      "description": "Immune to Ground moves until hit"
+    },
+    "safety_goggles": {
+      "name": "Safety Goggles",
+      "effect": "weather_immunity",
+      "trigger": "passive",
+      "description": "Immune to weather damage and powder moves"
+    },
+    "heavy_duty_boots": {
+      "name": "Heavy-Duty Boots",
+      "effect": "hazard_immunity",
+      "trigger": "passive",
+      "description": "Immune to entry hazards"
+    },
+    "assault_vest": {
+      "name": "Assault Vest",
+      "effect": "boost_spdef",
+      "stat_boost": {"spd": 1.5},
+      "move_restriction": "status_only",
+      "description": "Boosts Special Defense by 50% but can only use attacking moves"
+    },
+    "eviolite": {
+      "name": "Eviolite",
+      "effect": "boost_defenses",
+      "stat_boost": {"def": 1.5, "spd": 1.5},
+      "requirement": "not_fully_evolved",
+      "description": "Boosts Defense and Special Defense by 50% for non-fully evolved Pokemon"
+    },
+    "rocky_helmet": {
+      "name": "Rocky Helmet",
+      "effect": "contact_damage",
+      "trigger": "on_contact",
+      "damage": 0.25,
+      "description": "Damages attacker for 1/4 max HP on contact"
+    },
+    "black_sludge": {
+      "name": "Black Sludge",
+      "effect": "poison_heal",
+      "heal_percent": 0.0625,
+      "damage_percent": 0.0625,
+      "description": "Heals 1/16 HP per turn if Poison type, damages 1/16 HP per turn if not"
+    },
+    "flame_orb": {
+      "name": "Flame Orb",
+      "effect": "burn_on_switch",
+      "trigger": "on_switch_in",
+      "description": "Burns the holder when switching in"
+    },
+    "toxic_orb": {
+      "name": "Toxic Orb",
+      "effect": "badly_poison_on_switch",
+      "trigger": "on_switch_in",
+      "description": "Badly poisons the holder when switching in"
+    },
+    "power_herb": {
+      "name": "Power Herb",
+      "effect": "skip_charge",
+      "trigger": "on_charge_move",
+      "description": "Skips the charge turn for moves like Solar Beam (one time use)"
+    },
+    "white_herb": {
+      "name": "White Herb",
+      "effect": "restore_stats",
+      "trigger": "on_stat_drop",
+      "description": "Restores stat changes to normal when stats are lowered (one time use)"
+    },
+    "mental_herb": {
+      "name": "Mental Herb",
+      "effect": "cure_infatuation",
+      "trigger": "on_infatuation",
+      "description": "Cures infatuation when inflicted (one time use)"
+    },
+    "lum_berry": {
+      "name": "Lum Berry",
+      "effect": "cure_status",
+      "trigger": "on_status",
+      "description": "Cures any status condition when inflicted (one time use)"
+    },
+    "sitrus_berry": {
+      "name": "Sitrus Berry",
+      "effect": "heal_low_hp",
+      "trigger": "on_hp_below_half",
+      "heal_percent": 0.25,
+      "description": "Restores 1/4 max HP when HP drops below 50% (one time use)"
+    }
+  }
+}

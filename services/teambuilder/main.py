@@ -6,6 +6,8 @@ import numpy as np
 from transformers import AutoTokenizer, AutoModel
 import json
 import logging
+import yaml
+from pathlib import Path
 import random
 from ingest import get_usage, get_sets, get_legal_pokemon
 
@@ -14,6 +16,21 @@ logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
 app = FastAPI(title="PokéAI Team Builder Service", version="1.0.0")
+
+# Load format configuration
+format_config = None
+try:
+    config_path = Path(__file__).parent.parent.parent / "config" / "formats" / "gen9ou.yaml"
+    with open(config_path, 'r') as f:
+        format_config = yaml.safe_load(f)
+    logger.info(f"Loaded format config: {format_config.get('format')} v{format_config.get('version')}")
+except Exception as e:
+    logger.warning(f"Could not load format config, using defaults: {e}")
+    format_config = {
+        "format": "gen9ou",
+        "version": "1.0.0",
+        "dexVersion": "1.0.0"
+    }
 
 # Pydantic models
 class Pokemon(BaseModel):
@@ -401,12 +418,29 @@ teambuilder_service = TeamBuilderService()
 
 @app.get("/health")
 async def health_check():
-    return {"status": "healthy", "service": "pokeai-teambuilder"}
+    return {
+        "status": "healthy", 
+        "service": "pokeai-teambuilder",
+        "format": format_config.get("format", "gen9ou"),
+        "formatVersion": format_config.get("version", "1.0.0"),
+        "dexVersion": format_config.get("dexVersion", "1.0.0")
+    }
 
 @app.post("/build", response_model=TeamBuilderOutput)
 async def build_team(input_data: TeamBuilderInput):
     """Build a competitive team"""
     try:
+        # Format gating - only support gen9ou for now
+        requested_format = getattr(input_data, 'format', 'gen9ou')
+        if requested_format != 'gen9ou':
+            raise HTTPException(
+                status_code=501, 
+                detail={
+                    "error": "Format not implemented",
+                    "supportedFormats": ["gen9ou"],
+                    "requestedFormat": requested_format
+                }
+            )
         logger.info(f"Team building request for format: {input_data.format}")
         
         result = teambuilder_service.build_team(input_data)

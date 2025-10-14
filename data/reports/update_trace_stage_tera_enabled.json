@@ -1,0 +1,800 @@
+[
+  {
+    "turn": 1,
+    "state_hash": "state_1_1804549909433032541",
+    "legal_actions": [
+      "MOVE_Earthquake",
+      "MOVE_Stone Edge",
+      "MOVE_Toxic",
+      "SWITCH_1",
+      "SWITCH_2"
+    ],
+    "calc_features": {
+      "MOVE_Earthquake": {
+        "min": 85,
+        "max": 100,
+        "avg": 92.5,
+        "ohko": 0.0,
+        "twohko": 0.8,
+        "acc": 100,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Stone Edge": {
+        "min": 80,
+        "max": 95,
+        "avg": 87.5,
+        "ohko": 0.0,
+        "twohko": 0.7,
+        "acc": 80,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Toxic": {
+        "min": 0,
+        "max": 0,
+        "avg": 0,
+        "ohko": 0.0,
+        "twohko": 0.0,
+        "acc": 90,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      }
+    },
+    "policy_logits": {
+      "MOVE_Earthquake": 2.1,
+      "MOVE_Stone Edge": 1.8,
+      "MOVE_Toxic": 1.5,
+      "SWITCH_1": 0.9,
+      "SWITCH_2": 0.7
+    },
+    "chosen_action": "MOVE_Earthquake",
+    "safety_overrides": [],
+    "rng_seed": 12346,
+    "total_latency": 45.2
+  },
+  {
+    "turn": 2,
+    "state_hash": "state_2_-993278881295140630",
+    "legal_actions": [
+      "MOVE_Earthquake",
+      "MOVE_Stone Edge",
+      "MOVE_Toxic",
+      "SWITCH_1",
+      "SWITCH_2"
+    ],
+    "calc_features": {
+      "MOVE_Earthquake": {
+        "min": 85,
+        "max": 100,
+        "avg": 92.5,
+        "ohko": 0.0,
+        "twohko": 0.8,
+        "acc": 100,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Stone Edge": {
+        "min": 80,
+        "max": 95,
+        "avg": 87.5,
+        "ohko": 0.0,
+        "twohko": 0.7,
+        "acc": 80,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Toxic": {
+        "min": 0,
+        "max": 0,
+        "avg": 0,
+        "ohko": 0.0,
+        "twohko": 0.0,
+        "acc": 90,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      }
+    },
+    "policy_logits": {
+      "MOVE_Earthquake": 2.1,
+      "MOVE_Stone Edge": 1.8,
+      "MOVE_Toxic": 1.5,
+      "SWITCH_1": 0.9,
+      "SWITCH_2": 0.7
+    },
+    "chosen_action": "MOVE_Earthquake",
+    "safety_overrides": [],
+    "rng_seed": 12347,
+    "total_latency": 45.2
+  },
+  {
+    "turn": 3,
+    "state_hash": "state_3_3273722926173711407",
+    "legal_actions": [
+      "MOVE_Earthquake",
+      "MOVE_Stone Edge",
+      "MOVE_Toxic",
+      "SWITCH_1",
+      "SWITCH_2"
+    ],
+    "calc_features": {
+      "MOVE_Earthquake": {
+        "min": 85,
+        "max": 100,
+        "avg": 92.5,
+        "ohko": 0.0,
+        "twohko": 0.8,
+        "acc": 100,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Stone Edge": {
+        "min": 80,
+        "max": 95,
+        "avg": 87.5,
+        "ohko": 0.0,
+        "twohko": 0.7,
+        "acc": 80,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Toxic": {
+        "min": 0,
+        "max": 0,
+        "avg": 0,
+        "ohko": 0.0,
+        "twohko": 0.0,
+        "acc": 90,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      }
+    },
+    "policy_logits": {
+      "MOVE_Earthquake": 2.1,
+      "MOVE_Stone Edge": 1.8,
+      "MOVE_Toxic": 1.5,
+      "SWITCH_1": 0.9,
+      "SWITCH_2": 0.7
+    },
+    "chosen_action": "MOVE_Earthquake",
+    "safety_overrides": [],
+    "rng_seed": 12348,
+    "total_latency": 45.2
+  },
+  {
+    "turn": 4,
+    "state_hash": "state_4_8040212164266726283",
+    "legal_actions": [
+      "MOVE_Earthquake",
+      "MOVE_Stone Edge",
+      "MOVE_Toxic",
+      "SWITCH_1",
+      "SWITCH_2"
+    ],
+    "calc_features": {
+      "MOVE_Earthquake": {
+        "min": 85,
+        "max": 100,
+        "avg": 92.5,
+        "ohko": 0.0,
+        "twohko": 0.8,
+        "acc": 100,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Stone Edge": {
+        "min": 80,
+        "max": 95,
+        "avg": 87.5,
+        "ohko": 0.0,
+        "twohko": 0.7,
+        "acc": 80,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Toxic": {
+        "min": 0,
+        "max": 0,
+        "avg": 0,
+        "ohko": 0.0,
+        "twohko": 0.0,
+        "acc": 90,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      }
+    },
+    "policy_logits": {
+      "MOVE_Earthquake": 2.1,
+      "MOVE_Stone Edge": 1.8,
+      "MOVE_Toxic": 1.5,
+      "SWITCH_1": 0.9,
+      "SWITCH_2": 0.7
+    },
+    "chosen_action": "MOVE_Earthquake",
+    "safety_overrides": [],
+    "rng_seed": 12349,
+    "total_latency": 45.2
+  },
+  {
+    "turn": 5,
+    "state_hash": "state_5_-5894060091816743453",
+    "legal_actions": [
+      "MOVE_Earthquake",
+      "MOVE_Stone Edge",
+      "MOVE_Toxic",
+      "SWITCH_1",
+      "SWITCH_2"
+    ],
+    "calc_features": {
+      "MOVE_Earthquake": {
+        "min": 85,
+        "max": 100,
+        "avg": 92.5,
+        "ohko": 0.0,
+        "twohko": 0.8,
+        "acc": 100,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Stone Edge": {
+        "min": 80,
+        "max": 95,
+        "avg": 87.5,
+        "ohko": 0.0,
+        "twohko": 0.7,
+        "acc": 80,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Toxic": {
+        "min": 0,
+        "max": 0,
+        "avg": 0,
+        "ohko": 0.0,
+        "twohko": 0.0,
+        "acc": 90,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      }
+    },
+    "policy_logits": {
+      "MOVE_Earthquake": 2.1,
+      "MOVE_Stone Edge": 1.8,
+      "MOVE_Toxic": 1.5,
+      "SWITCH_1": 0.9,
+      "SWITCH_2": 0.7
+    },
+    "chosen_action": "MOVE_Earthquake",
+    "safety_overrides": [],
+    "rng_seed": 12350,
+    "total_latency": 45.2
+  },
+  {
+    "turn": 6,
+    "state_hash": "state_6_6738487678609482589",
+    "legal_actions": [
+      "MOVE_Earthquake",
+      "MOVE_Stone Edge",
+      "MOVE_Toxic",
+      "SWITCH_1",
+      "SWITCH_2"
+    ],
+    "calc_features": {
+      "MOVE_Earthquake": {
+        "min": 85,
+        "max": 100,
+        "avg": 92.5,
+        "ohko": 0.0,
+        "twohko": 0.8,
+        "acc": 100,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Stone Edge": {
+        "min": 80,
+        "max": 95,
+        "avg": 87.5,
+        "ohko": 0.0,
+        "twohko": 0.7,
+        "acc": 80,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Toxic": {
+        "min": 0,
+        "max": 0,
+        "avg": 0,
+        "ohko": 0.0,
+        "twohko": 0.0,
+        "acc": 90,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      }
+    },
+    "policy_logits": {
+      "MOVE_Earthquake": 2.1,
+      "MOVE_Stone Edge": 1.8,
+      "MOVE_Toxic": 1.5,
+      "SWITCH_1": 0.9,
+      "SWITCH_2": 0.7
+    },
+    "chosen_action": "MOVE_Earthquake",
+    "safety_overrides": [],
+    "rng_seed": 12351,
+    "total_latency": 45.2
+  },
+  {
+    "turn": 7,
+    "state_hash": "state_7_-6989250918104317116",
+    "legal_actions": [
+      "MOVE_Earthquake",
+      "MOVE_Stone Edge",
+      "MOVE_Toxic",
+      "SWITCH_1",
+      "SWITCH_2"
+    ],
+    "calc_features": {
+      "MOVE_Earthquake": {
+        "min": 85,
+        "max": 100,
+        "avg": 92.5,
+        "ohko": 0.0,
+        "twohko": 0.8,
+        "acc": 100,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Stone Edge": {
+        "min": 80,
+        "max": 95,
+        "avg": 87.5,
+        "ohko": 0.0,
+        "twohko": 0.7,
+        "acc": 80,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Toxic": {
+        "min": 0,
+        "max": 0,
+        "avg": 0,
+        "ohko": 0.0,
+        "twohko": 0.0,
+        "acc": 90,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      }
+    },
+    "policy_logits": {
+      "MOVE_Earthquake": 2.1,
+      "MOVE_Stone Edge": 1.8,
+      "MOVE_Toxic": 1.5,
+      "SWITCH_1": 0.9,
+      "SWITCH_2": 0.7
+    },
+    "chosen_action": "MOVE_Earthquake",
+    "safety_overrides": [],
+    "rng_seed": 12352,
+    "total_latency": 45.2
+  },
+  {
+    "turn": 1,
+    "state_hash": "state_1_1804549909433032541",
+    "legal_actions": [
+      "MOVE_Earthquake",
+      "MOVE_Stone Edge",
+      "MOVE_Toxic",
+      "SWITCH_1",
+      "SWITCH_2"
+    ],
+    "calc_features": {
+      "MOVE_Earthquake": {
+        "min": 85,
+        "max": 100,
+        "avg": 92.5,
+        "ohko": 0.0,
+        "twohko": 0.8,
+        "acc": 100,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Stone Edge": {
+        "min": 80,
+        "max": 95,
+        "avg": 87.5,
+        "ohko": 0.0,
+        "twohko": 0.7,
+        "acc": 80,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Toxic": {
+        "min": 0,
+        "max": 0,
+        "avg": 0,
+        "ohko": 0.0,
+        "twohko": 0.0,
+        "acc": 90,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      }
+    },
+    "policy_logits": {
+      "MOVE_Earthquake": 2.1,
+      "MOVE_Stone Edge": 1.8,
+      "MOVE_Toxic": 1.5,
+      "SWITCH_1": 0.9,
+      "SWITCH_2": 0.7
+    },
+    "chosen_action": "MOVE_Earthquake",
+    "safety_overrides": [],
+    "rng_seed": 12346,
+    "total_latency": 45.2
+  },
+  {
+    "turn": 2,
+    "state_hash": "state_2_-993278881295140630",
+    "legal_actions": [
+      "MOVE_Earthquake",
+      "MOVE_Stone Edge",
+      "MOVE_Toxic",
+      "SWITCH_1",
+      "SWITCH_2"
+    ],
+    "calc_features": {
+      "MOVE_Earthquake": {
+        "min": 85,
+        "max": 100,
+        "avg": 92.5,
+        "ohko": 0.0,
+        "twohko": 0.8,
+        "acc": 100,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Stone Edge": {
+        "min": 80,
+        "max": 95,
+        "avg": 87.5,
+        "ohko": 0.0,
+        "twohko": 0.7,
+        "acc": 80,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Toxic": {
+        "min": 0,
+        "max": 0,
+        "avg": 0,
+        "ohko": 0.0,
+        "twohko": 0.0,
+        "acc": 90,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      }
+    },
+    "policy_logits": {
+      "MOVE_Earthquake": 2.1,
+      "MOVE_Stone Edge": 1.8,
+      "MOVE_Toxic": 1.5,
+      "SWITCH_1": 0.9,
+      "SWITCH_2": 0.7
+    },
+    "chosen_action": "MOVE_Earthquake",
+    "safety_overrides": [],
+    "rng_seed": 12347,
+    "total_latency": 45.2
+  },
+  {
+    "turn": 3,
+    "state_hash": "state_3_3273722926173711407",
+    "legal_actions": [
+      "MOVE_Earthquake",
+      "MOVE_Stone Edge",
+      "MOVE_Toxic",
+      "SWITCH_1",
+      "SWITCH_2"
+    ],
+    "calc_features": {
+      "MOVE_Earthquake": {
+        "min": 85,
+        "max": 100,
+        "avg": 92.5,
+        "ohko": 0.0,
+        "twohko": 0.8,
+        "acc": 100,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Stone Edge": {
+        "min": 80,
+        "max": 95,
+        "avg": 87.5,
+        "ohko": 0.0,
+        "twohko": 0.7,
+        "acc": 80,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Toxic": {
+        "min": 0,
+        "max": 0,
+        "avg": 0,
+        "ohko": 0.0,
+        "twohko": 0.0,
+        "acc": 90,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      }
+    },
+    "policy_logits": {
+      "MOVE_Earthquake": 2.1,
+      "MOVE_Stone Edge": 1.8,
+      "MOVE_Toxic": 1.5,
+      "SWITCH_1": 0.9,
+      "SWITCH_2": 0.7
+    },
+    "chosen_action": "MOVE_Earthquake",
+    "safety_overrides": [],
+    "rng_seed": 12348,
+    "total_latency": 45.2
+  },
+  {
+    "turn": 4,
+    "state_hash": "state_4_8040212164266726283",
+    "legal_actions": [
+      "MOVE_Earthquake",
+      "MOVE_Stone Edge",
+      "MOVE_Toxic",
+      "SWITCH_1",
+      "SWITCH_2"
+    ],
+    "calc_features": {
+      "MOVE_Earthquake": {
+        "min": 85,
+        "max": 100,
+        "avg": 92.5,
+        "ohko": 0.0,
+        "twohko": 0.8,
+        "acc": 100,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Stone Edge": {
+        "min": 80,
+        "max": 95,
+        "avg": 87.5,
+        "ohko": 0.0,
+        "twohko": 0.7,
+        "acc": 80,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Toxic": {
+        "min": 0,
+        "max": 0,
+        "avg": 0,
+        "ohko": 0.0,
+        "twohko": 0.0,
+        "acc": 90,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      }
+    },
+    "policy_logits": {
+      "MOVE_Earthquake": 2.1,
+      "MOVE_Stone Edge": 1.8,
+      "MOVE_Toxic": 1.5,
+      "SWITCH_1": 0.9,
+      "SWITCH_2": 0.7
+    },
+    "chosen_action": "MOVE_Earthquake",
+    "safety_overrides": [],
+    "rng_seed": 12349,
+    "total_latency": 45.2
+  },
+  {
+    "turn": 5,
+    "state_hash": "state_5_-5894060091816743453",
+    "legal_actions": [
+      "MOVE_Earthquake",
+      "MOVE_Stone Edge",
+      "MOVE_Toxic",
+      "SWITCH_1",
+      "SWITCH_2"
+    ],
+    "calc_features": {
+      "MOVE_Earthquake": {
+        "min": 85,
+        "max": 100,
+        "avg": 92.5,
+        "ohko": 0.0,
+        "twohko": 0.8,
+        "acc": 100,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Stone Edge": {
+        "min": 80,
+        "max": 95,
+        "avg": 87.5,
+        "ohko": 0.0,
+        "twohko": 0.7,
+        "acc": 80,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Toxic": {
+        "min": 0,
+        "max": 0,
+        "avg": 0,
+        "ohko": 0.0,
+        "twohko": 0.0,
+        "acc": 90,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      }
+    },
+    "policy_logits": {
+      "MOVE_Earthquake": 2.1,
+      "MOVE_Stone Edge": 1.8,
+      "MOVE_Toxic": 1.5,
+      "SWITCH_1": 0.9,
+      "SWITCH_2": 0.7
+    },
+    "chosen_action": "MOVE_Earthquake",
+    "safety_overrides": [],
+    "rng_seed": 12350,
+    "total_latency": 45.2
+  },
+  {
+    "turn": 6,
+    "state_hash": "state_6_6738487678609482589",
+    "legal_actions": [
+      "MOVE_Earthquake",
+      "MOVE_Stone Edge",
+      "MOVE_Toxic",
+      "SWITCH_1",
+      "SWITCH_2"
+    ],
+    "calc_features": {
+      "MOVE_Earthquake": {
+        "min": 85,
+        "max": 100,
+        "avg": 92.5,
+        "ohko": 0.0,
+        "twohko": 0.8,
+        "acc": 100,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Stone Edge": {
+        "min": 80,
+        "max": 95,
+        "avg": 87.5,
+        "ohko": 0.0,
+        "twohko": 0.7,
+        "acc": 80,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Toxic": {
+        "min": 0,
+        "max": 0,
+        "avg": 0,
+        "ohko": 0.0,
+        "twohko": 0.0,
+        "acc": 90,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      }
+    },
+    "policy_logits": {
+      "MOVE_Earthquake": 2.1,
+      "MOVE_Stone Edge": 1.8,
+      "MOVE_Toxic": 1.5,
+      "SWITCH_1": 0.9,
+      "SWITCH_2": 0.7
+    },
+    "chosen_action": "MOVE_Earthquake",
+    "safety_overrides": [],
+    "rng_seed": 12351,
+    "total_latency": 45.2
+  },
+  {
+    "turn": 7,
+    "state_hash": "state_7_-6989250918104317116",
+    "legal_actions": [
+      "MOVE_Earthquake",
+      "MOVE_Stone Edge",
+      "MOVE_Toxic",
+      "SWITCH_1",
+      "SWITCH_2"
+    ],
+    "calc_features": {
+      "MOVE_Earthquake": {
+        "min": 85,
+        "max": 100,
+        "avg": 92.5,
+        "ohko": 0.0,
+        "twohko": 0.8,
+        "acc": 100,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Stone Edge": {
+        "min": 80,
+        "max": 95,
+        "avg": 87.5,
+        "ohko": 0.0,
+        "twohko": 0.7,
+        "acc": 80,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      },
+      "MOVE_Toxic": {
+        "min": 0,
+        "max": 0,
+        "avg": 0,
+        "ohko": 0.0,
+        "twohko": 0.0,
+        "acc": 90,
+        "speedWinProb": 0.5,
+        "hazardIntake": 12.5,
+        "survivalNextTurn": 0.9
+      }
+    },
+    "policy_logits": {
+      "MOVE_Earthquake": 2.1,
+      "MOVE_Stone Edge": 1.8,
+      "MOVE_Toxic": 1.5,
+      "SWITCH_1": 0.9,
+      "SWITCH_2": 0.7
+    },
+    "chosen_action": "MOVE_Earthquake",
+    "safety_overrides": [],
+    "rng_seed": 12352,
+    "total_latency": 45.2
+  }
+]

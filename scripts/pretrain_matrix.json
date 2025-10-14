@@ -1,0 +1,402 @@
+{
+  "assertions": {
+    "hazards_stealth_rock": {
+      "file": "tests/mechanics/test_hazards.py",
+      "test": "test_stealth_rock_damage",
+      "expected": "12.5% damage for Fire type"
+    },
+    "hazards_heavy_duty_boots": {
+      "file": "tests/mechanics/test_hazards.py", 
+      "test": "test_heavy_duty_boots_immunity",
+      "expected": "0 damage with Heavy-Duty Boots"
+    },
+    "hazards_spikes_layers": {
+      "file": "tests/mechanics/test_hazards.py",
+      "test": "test_spikes_damage_layers", 
+      "expected": "12.5% per layer, max 37.5%"
+    },
+    "hazards_flying_immunity": {
+      "file": "tests/mechanics/test_hazards.py",
+      "test": "test_flying_immune_to_spikes_web",
+      "expected": "Flying types immune to Spikes/Web"
+    },
+    "hazards_poison_absorb": {
+      "file": "tests/mechanics/test_hazards.py",
+      "test": "test_poison_type_absorbs_toxic_spikes",
+      "expected": "Poison types absorb TSpikes"
+    },
+    "hazards_magic_bounce": {
+      "file": "tests/mechanics/test_hazards.py",
+      "test": "test_magic_bounce_reflects_hazards",
+      "expected": "Magic Bounce reflects hazards"
+    },
+    "screens_reflect": {
+      "file": "tests/mechanics/test_screens_rooms.py",
+      "test": "test_reflect_damage_reduction",
+      "expected": "50% physical damage reduction"
+    },
+    "screens_infiltrator": {
+      "file": "tests/mechanics/test_screens_rooms.py",
+      "test": "test_infiltrator_ignores_screens",
+      "expected": "Infiltrator ignores all screens"
+    },
+    "screens_aurora_veil": {
+      "file": "tests/mechanics/test_screens_rooms.py",
+      "test": "test_aurora_veil_damage_reduction",
+      "expected": "50% damage reduction in hail"
+    },
+    "trick_room_inversion": {
+      "file": "tests/mechanics/test_screens_rooms.py",
+      "test": "test_trick_room_inverts_speed_order",
+      "expected": "Slower Pokemon goes first"
+    },
+    "tailwind_speed": {
+      "file": "tests/mechanics/test_screens_rooms.py",
+      "test": "test_tailwind_doubles_speed",
+      "expected": "2x speed multiplier"
+    },
+    "status_burn": {
+      "file": "tests/mechanics/test_status_volatiles.py",
+      "test": "test_burn_damage_per_turn",
+      "expected": "12.5% damage per turn"
+    },
+    "status_paralysis": {
+      "file": "tests/mechanics/test_status_volatiles.py",
+      "test": "test_paralysis_speed_reduction",
+      "expected": "75% speed reduction"
+    },
+    "status_sleep": {
+      "file": "tests/mechanics/test_status_volatiles.py",
+      "test": "test_sleep_wake_up_chance",
+      "expected": "33% wake up chance"
+    },
+    "volatiles_taunt": {
+      "file": "tests/mechanics/test_status_volatiles.py",
+      "test": "test_taunt_prevents_status_moves",
+      "expected": "Blocks status moves"
+    },
+    "volatiles_encore": {
+      "file": "tests/mechanics/test_status_volatiles.py",
+      "test": "test_encore_forces_move_repetition",
+      "expected": "Forces move repetition"
+    },
+    "volatiles_torment": {
+      "file": "tests/mechanics/test_status_volatiles.py",
+      "test": "test_torment_prevents_move_repetition",
+      "expected": "Prevents move repetition"
+    },
+    "priority_brackets": {
+      "file": "tests/mechanics/test_priority_speed.py",
+      "test": "test_priority_brackets_determine_order",
+      "expected": "Priority overrides speed"
+    },
+    "speed_ties": {
+      "file": "tests/mechanics/test_priority_speed.py",
+      "test": "test_speed_tie_randomization",
+      "expected": "Speed ties randomized"
+    },
+    "prankster_dark": {
+      "file": "tests/mechanics/test_priority_speed.py",
+      "test": "test_prankster_fails_vs_dark_targets",
+      "expected": "Prankster fails vs Dark"
+    },
+    "choice_lock": {
+      "file": "tests/mechanics/test_choice_locking.py",
+      "test": "test_choice_band_locks_into_first_move",
+      "expected": "Choice locks into first move"
+    },
+    "choice_encore": {
+      "file": "tests/mechanics/test_choice_locking.py",
+      "test": "test_encore_cannot_force_different_move_while_locked",
+      "expected": "Encore cannot force different move"
+    },
+    "assault_vest": {
+      "file": "tests/mechanics/test_choice_locking.py",
+      "test": "test_assault_vest_blocks_status_moves",
+      "expected": "Blocks status moves"
+    },
+    "items_heavy_duty_boots": {
+      "file": "tests/mechanics/test_items.py",
+      "test": "test_heavy_duty_boots_hazard_immunity",
+      "expected": "Hazard immunity"
+    },
+    "items_focus_sash": {
+      "file": "tests/mechanics/test_items.py",
+      "test": "test_focus_sash_survives_ohko",
+      "expected": "Survives OHKO at full HP"
+    },
+    "items_life_orb": {
+      "file": "tests/mechanics/test_items.py",
+      "test": "test_life_orb_damage_boost",
+      "expected": "30% damage boost"
+    },
+    "items_rocky_helmet": {
+      "file": "tests/mechanics/test_items.py",
+      "test": "test_rocky_helmet_contact_damage",
+      "expected": "25% contact damage"
+    },
+    "abilities_intimidate": {
+      "file": "tests/mechanics/test_abilities.py",
+      "test": "test_intimidate_lowers_attack_on_switch_in",
+      "expected": "Lowers Attack on switch"
+    },
+    "abilities_unaware": {
+      "file": "tests/mechanics/test_abilities.py",
+      "test": "test_unaware_defender_ignores_attacker_boosts",
+      "expected": "Ignores attacker boosts"
+    },
+    "abilities_magic_guard": {
+      "file": "tests/mechanics/test_abilities.py",
+      "test": "test_magic_guard_blocks_indirect_damage",
+      "expected": "Blocks indirect damage"
+    },
+    "abilities_magic_bounce": {
+      "file": "tests/mechanics/test_abilities.py",
+      "test": "test_magic_bounce_reflects_hazards",
+      "expected": "Reflects hazards"
+    },
+    "moves_multi_hit": {
+      "file": "tests/mechanics/test_move_specifics.py",
+      "test": "test_bullet_seed_hit_count",
+      "expected": "2-5 hits for Bullet Seed"
+    },
+    "moves_sucker_punch": {
+      "file": "tests/mechanics/test_move_specifics.py",
+      "test": "test_sucker_punch_fails_vs_status_moves",
+      "expected": "Fails vs status moves"
+    },
+    "moves_protect": {
+      "file": "tests/mechanics/test_move_specifics.py",
+      "test": "test_protect_blocks_all_moves",
+      "expected": "Blocks all moves"
+    },
+    "moves_substitute": {
+      "file": "tests/mechanics/test_move_specifics.py",
+      "test": "test_substitute_blocks_status_moves",
+      "expected": "Blocks status moves"
+    },
+    "weather_sun": {
+      "file": "tests/mechanics/test_weather_terrain.py",
+      "test": "test_sun_fire_boost_water_nerf",
+      "expected": "Fire +50%, Water -50%"
+    },
+    "weather_rain": {
+      "file": "tests/mechanics/test_weather_terrain.py",
+      "test": "test_rain_water_boost_fire_nerf",
+      "expected": "Water +50%, Fire -50%"
+    },
+    "weather_sandstorm": {
+      "file": "tests/mechanics/test_weather_terrain.py",
+      "test": "test_sandstorm_damage_per_turn",
+      "expected": "6.25% damage per turn"
+    },
+    "terrain_electric": {
+      "file": "tests/mechanics/test_weather_terrain.py",
+      "test": "test_electric_terrain_electric_boost",
+      "expected": "30% Electric boost"
+    },
+    "terrain_grassy": {
+      "file": "tests/mechanics/test_weather_terrain.py",
+      "test": "test_grassy_terrain_earthquake_nerf",
+      "expected": "50% Earthquake nerf vs grounded"
+    },
+    "terrain_misty": {
+      "file": "tests/mechanics/test_weather_terrain.py",
+      "test": "test_misty_terrain_status_immunity",
+      "expected": "Status immunity for grounded"
+    },
+    "tera_typing_change": {
+      "file": "tests/mechanics/test_tera.py",
+      "test": "test_tera_typing_change",
+      "expected": "Changes typing"
+    },
+    "tera_stab_recalculation": {
+      "file": "tests/mechanics/test_tera.py",
+      "test": "test_tera_stab_recalculation",
+      "expected": "Recalculates STAB"
+    },
+    "tera_one_time_use": {
+      "file": "tests/mechanics/test_tera.py",
+      "test": "test_tera_one_time_use",
+      "expected": "One-time use only"
+    },
+    "masking_pp_zero": {
+      "file": "tests/masking/test_action_masking.py",
+      "test": "test_pp_zero_moves_illegal",
+      "expected": "0 PP moves illegal"
+    },
+    "masking_disable": {
+      "file": "tests/masking/test_action_masking.py",
+      "test": "test_disable_blocks_specific_move",
+      "expected": "Disabled moves illegal"
+    },
+    "masking_taunt": {
+      "file": "tests/masking/test_action_masking.py",
+      "test": "test_taunt_blocks_status_moves",
+      "expected": "Status moves illegal"
+    },
+    "masking_choice_lock": {
+      "file": "tests/masking/test_action_masking.py",
+      "test": "test_choice_lock_blocks_other_moves",
+      "expected": "Other moves illegal"
+    },
+    "masking_assault_vest": {
+      "file": "tests/masking/test_action_masking.py",
+      "test": "test_assault_vest_blocks_status_moves",
+      "expected": "Status moves illegal"
+    },
+    "masking_trap_states": {
+      "file": "tests/masking/test_action_masking.py",
+      "test": "test_trap_states_prevent_switching",
+      "expected": "Switching illegal"
+    },
+    "masking_tera_used": {
+      "file": "tests/masking/test_action_masking.py",
+      "test": "test_already_used_tera_illegal",
+      "expected": "Tera illegal after use"
+    },
+    "masking_zero_accuracy": {
+      "file": "tests/masking/test_action_masking.py",
+      "test": "test_zero_accuracy_moves_illegal",
+      "expected": "0% accuracy moves illegal"
+    },
+    "calc_full_feature_set": {
+      "file": "tests/calc/test_calc_fidelity.py",
+      "test": "test_batch_calc_returns_full_feature_set",
+      "expected": "All required features present"
+    },
+    "calc_damage_range": {
+      "file": "tests/calc/test_calc_fidelity.py",
+      "test": "test_calc_includes_damage_range",
+      "expected": "Min, max, avg damage"
+    },
+    "calc_ko_probabilities": {
+      "file": "tests/calc/test_calc_fidelity.py",
+      "test": "test_calc_includes_ko_probabilities",
+      "expected": "OHKO, 2HKO probabilities"
+    },
+    "calc_speed_win_prob": {
+      "file": "tests/calc/test_calc_fidelity.py",
+      "test": "test_calc_includes_speed_win_probability",
+      "expected": "Speed win probability"
+    },
+    "calc_hazard_intake": {
+      "file": "tests/calc/test_calc_fidelity.py",
+      "test": "test_calc_includes_hazard_intake",
+      "expected": "Hazard intake on switch"
+    },
+    "calc_survival_prob": {
+      "file": "tests/calc/test_calc_fidelity.py",
+      "test": "test_calc_includes_survival_probability",
+      "expected": "Survival probability next turn"
+    },
+    "calc_multi_hit_math": {
+      "file": "tests/calc/test_calc_fidelity.py",
+      "test": "test_calc_multi_hit_math",
+      "expected": "Multi-hit damage calculation"
+    },
+    "calc_contact_flags": {
+      "file": "tests/calc/test_calc_fidelity.py",
+      "test": "test_calc_contact_flags",
+      "expected": "Contact flags for recoil"
+    },
+    "calc_stab_after_tera": {
+      "file": "tests/calc/test_calc_fidelity.py",
+      "test": "test_calc_stab_after_tera",
+      "expected": "STAB after Tera"
+    },
+    "format_guards_gen9ou": {
+      "file": "tests/format/test_format_guards.py",
+      "test": "test_gen9ou_format_allowed",
+      "expected": "Gen9OU format allowed"
+    },
+    "format_guards_non_gen9ou": {
+      "file": "tests/format/test_format_guards.py",
+      "test": "test_non_gen9ou_format_raises_not_implemented",
+      "expected": "Non-gen9ou formats raise NotImplementedError"
+    },
+    "format_guards_tera_gating": {
+      "file": "tests/format/test_format_guards.py",
+      "test": "test_tera_gating",
+      "expected": "Tera gated by format.tera_allowed"
+    },
+    "format_guards_clauses": {
+      "file": "tests/format/test_format_guards.py",
+      "test": "test_clause_gating",
+      "expected": "Clauses format-specific"
+    },
+    "format_guards_banned_items": {
+      "file": "tests/format/test_format_guards.py",
+      "test": "test_banned_items_gating",
+      "expected": "Banned items format-specific"
+    },
+    "format_guards_weather_abilities": {
+      "file": "tests/format/test_format_guards.py",
+      "test": "test_weather_abilities_gating",
+      "expected": "Weather abilities format-specific"
+    },
+    "format_guards_terrain_abilities": {
+      "file": "tests/format/test_format_guards.py",
+      "test": "test_terrain_abilities_gating",
+      "expected": "Terrain abilities format-specific"
+    },
+    "format_guards_hazard_mechanics": {
+      "file": "tests/format/test_format_guards.py",
+      "test": "test_hazard_mechanics_gating",
+      "expected": "Hazard mechanics format-specific"
+    },
+    "format_guards_screen_mechanics": {
+      "file": "tests/format/test_format_guards.py",
+      "test": "test_screen_mechanics_gating",
+      "expected": "Screen mechanics format-specific"
+    },
+    "format_guards_status_mechanics": {
+      "file": "tests/format/test_format_guards.py",
+      "test": "test_status_mechanics_gating",
+      "expected": "Status mechanics format-specific"
+    },
+    "format_guards_priority_mechanics": {
+      "file": "tests/format/test_format_guards.py",
+      "test": "test_priority_mechanics_gating",
+      "expected": "Priority mechanics format-specific"
+    },
+    "format_guards_contact_mechanics": {
+      "file": "tests/format/test_format_guards.py",
+      "test": "test_contact_mechanics_gating",
+      "expected": "Contact mechanics format-specific"
+    },
+    "format_guards_multihit_mechanics": {
+      "file": "tests/format/test_format_guards.py",
+      "test": "test_multi_hit_mechanics_gating",
+      "expected": "Multi-hit mechanics format-specific"
+    },
+    "format_guards_pp_mechanics": {
+      "file": "tests/format/test_format_guards.py",
+      "test": "test_pp_mechanics_gating",
+      "expected": "PP mechanics format-specific"
+    },
+    "format_guards_tera_mechanics": {
+      "file": "tests/format/test_format_guards.py",
+      "test": "test_tera_mechanics_gating",
+      "expected": "Tera mechanics format-specific"
+    }
+  },
+  "coverage": {
+    "total_assertions": 70,
+    "categories": {
+      "hazards": 6,
+      "screens_rooms": 5,
+      "status_volatiles": 7,
+      "priority_speed": 3,
+      "choice_locking": 3,
+      "items": 4,
+      "abilities": 4,
+      "moves": 4,
+      "weather_terrain": 6,
+      "tera": 3,
+      "masking": 8,
+      "calc_fidelity": 9,
+      "format_guards": 13
+    }
+  }
+}

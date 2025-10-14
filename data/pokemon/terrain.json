@@ -1,0 +1,53 @@
+{
+  "terrain": {
+    "electric": {
+      "name": "Electric Terrain",
+      "duration": 5,
+      "effects": {
+        "electric_boost": 1.3,
+        "sleep_immunity": true,
+        "priority_boost": 1,
+        "priority_moves": ["Quick Attack", "Extreme Speed", "Fake Out", "Sucker Punch"]
+      },
+      "moves": ["Electric Terrain"],
+      "abilities": ["Electric Surge"]
+    },
+    "grassy": {
+      "name": "Grassy Terrain",
+      "duration": 5,
+      "effects": {
+        "grass_boost": 1.3,
+        "earthquake_nerf": 0.5,
+        "magnitude_nerf": 0.5,
+        "bulldoze_nerf": 0.5,
+        "heal_per_turn": 0.0625,
+        "heal_immunity": ["Flying", "Levitating"]
+      },
+      "moves": ["Grassy Terrain"],
+      "abilities": ["Grassy Surge"]
+    },
+    "misty": {
+      "name": "Misty Terrain",
+      "duration": 5,
+      "effects": {
+        "fairy_boost": 1.3,
+        "dragon_nerf": 0.5,
+        "status_immunity": true,
+        "status_moves": ["Toxic", "Will-O-Wisp", "Thunder Wave", "Sleep Powder", "Spore"]
+      },
+      "moves": ["Misty Terrain"],
+      "abilities": ["Misty Surge"]
+    },
+    "psychic": {
+      "name": "Psychic Terrain",
+      "duration": 5,
+      "effects": {
+        "psychic_boost": 1.3,
+        "priority_immunity": true,
+        "priority_moves": ["Quick Attack", "Extreme Speed", "Fake Out", "Sucker Punch", "Bullet Punch", "Aqua Jet", "Ice Shard", "Mach Punch", "Shadow Sneak", "Vacuum Wave"]
+      },
+      "moves": ["Psychic Terrain"],
+      "abilities": ["Psychic Surge"]
+    }
+  }
+}
