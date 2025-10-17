@@ -44,13 +44,17 @@ if [ ! -d ".venv-policy" ] || [ ! -d ".venv-teambuilder" ]; then
 fi
 print_success "Environment check passed"
 
-# Step 2: Check ports
+# Step 2: Check ports (skip if services are already running)
 print_status "Step 2: Checking ports..."
-if ! ./scripts/check_ports.sh; then
-    print_error "Port check failed. Please free occupied ports or start services"
-    exit 1
+if ./scripts/health.sh >/dev/null 2>&1; then
+    print_success "Services are already running, skipping port check"
+else
+    if ! ./scripts/check_ports.sh; then
+        print_error "Port check failed. Please free occupied ports or start services"
+        exit 1
+    fi
+    print_success "Port check passed"
 fi
-print_success "Port check passed"
 
 # Step 3: Check service health
 print_status "Step 3: Checking service health..."
@@ -108,8 +112,50 @@ if [ ! -L "models/checkpoints/latest.ckpt" ]; then
 fi
 print_success "Latest checkpoint found"
 
+# Step 8: Check for new artifact management files
+print_status "Step 8: Checking artifact management files..."
+
+# Check for sample files
+if [ -d "data/samples" ] && [ "$(ls -A data/samples 2>/dev/null)" ]; then
+    print_success "Sample files created in data/samples/"
+    ls -la data/samples/
+    
+    # Check sample file sizes (should be small)
+    print_status "Checking sample file sizes..."
+    for file in data/samples/*; do
+        if [ -f "$file" ]; then
+            size=$(du -h "$file" | cut -f1)
+            size_bytes=$(stat -c%s "$file" 2>/dev/null || stat -f%z "$file" 2>/dev/null)
+            if [ $size_bytes -gt 204800 ]; then  # 200KB
+                print_warning "Sample file $file is large: $size"
+            else
+                print_success "Sample file $file is appropriately sized: $size"
+            fi
+        fi
+    done
+else
+    print_warning "No sample files found in data/samples/"
+fi
+
+# Check for compressed logs
+if [ -d "data/logs/train" ] && find data/logs/train -name "*.jsonl.gz" | grep -q .; then
+    print_success "Compressed logs found"
+    find data/logs/train -name "*.jsonl.gz" | head -5
+else
+    print_warning "No compressed logs found (may be expected for short run)"
+fi
+
+# Check for checkpoint metadata
+if find data/samples -name "*checkpoint_meta.json" | grep -q .; then
+    print_success "Checkpoint metadata found"
+else
+    print_warning "No checkpoint metadata found"
+fi
+
 print_success "All smoke tests passed! 🎉"
 print_status "Artifacts created:"
 print_status "  - data/reports/update_trace_stage_baseline.json"
 print_status "  - data/reports/training_diagnostics.json"
 print_status "  - models/checkpoints/latest.ckpt"
+print_status "  - data/samples/ (sample files)"
+print_status "  - data/logs/train/ (compressed logs)"

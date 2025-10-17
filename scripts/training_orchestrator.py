@@ -16,10 +16,15 @@ import subprocess
 import sys
 import time
 import os
+import uuid
 from pathlib import Path
 from typing import Dict, List, Any, Optional, Tuple
 from dataclasses import dataclass
 from enum import Enum
+
+# Import log rotator
+sys.path.append(str(Path(__file__).parent))
+from log_rotate import LogRotator
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
@@ -102,6 +107,8 @@ class TrainingOrchestrator:
         self.current_stage = TrainingStage.A
         self.training_history = []
         self.opponent_pool = []
+        self.run_id = str(uuid.uuid4())[:8]  # Short run ID
+        self.log_rotator = LogRotator(self.run_id)
         
         # Create directories
         Path(self.config.log_dir).mkdir(parents=True, exist_ok=True)
@@ -111,6 +118,9 @@ class TrainingOrchestrator:
         """Run the complete training pipeline"""
         logger.info("Starting PokéAI Training Pipeline")
         logger.info("=" * 60)
+        
+        # Start log rotation
+        self.log_rotator.start_logging()
         
         # Step 1: Check for resume
         checkpoint_path = self._check_for_resume()
@@ -220,6 +230,11 @@ class TrainingOrchestrator:
         # Update opponent pool
         self._update_opponent_pool(stage)
         
+        # Flush and compress logs for this stage
+        self.log_rotator.flush_and_compress()
+        self.log_rotator.create_sample()
+        self.log_rotator.create_summary()
+        
         return True
     
     def _get_stage_config(self, stage: TrainingStage) -> Dict[str, Any]:
@@ -274,6 +289,17 @@ class TrainingOrchestrator:
             # Run game
             game_result = self._run_single_game(stage, opponent, stage_config, explain_update)
             training_data.append(game_result)
+            
+            # Log training event
+            self.log_rotator.write_event({
+                "timestamp": time.time(),
+                "type": "training_game",
+                "stage": stage.value,
+                "game_num": game_num,
+                "opponent_type": opponent["type"],
+                "result": game_result.get("result", "unknown"),
+                "turns": game_result.get("turns", 0)
+            })
             
             # Collect update trace if explaining
             if explain_update and game_num < 2:  # Only first 2 games for trace
@@ -423,6 +449,22 @@ class TrainingOrchestrator:
         with open(checkpoint_path / "metadata.json", 'w') as f:
             json.dump(metadata, f, indent=2)
         
+        # Create lightweight metadata for samples
+        samples_dir = Path("data/samples")
+        samples_dir.mkdir(parents=True, exist_ok=True)
+        
+        checkpoint_meta = {
+            "run_id": self.run_id,
+            "stage": stage.value,
+            "timestamp": time.time(),
+            "checkpoint_path": str(checkpoint_path),
+            "size_mb": self._get_directory_size_mb(checkpoint_path),
+            "files": [f.name for f in checkpoint_path.rglob("*") if f.is_file()]
+        }
+        
+        with open(samples_dir / f"{self.run_id}-checkpoint_meta.json", 'w') as f:
+            json.dump(checkpoint_meta, f, indent=2)
+        
         # Create symlink to latest checkpoint
         latest_path = Path(self.config.checkpoint_dir) / "latest.ckpt"
         if latest_path.exists():
@@ -430,6 +472,14 @@ class TrainingOrchestrator:
         latest_path.symlink_to(checkpoint_path)
         
         logger.info(f"Saved checkpoint: {checkpoint_name}")
+    
+    def _get_directory_size_mb(self, directory: Path) -> float:
+        """Get directory size in MB"""
+        total_size = 0
+        for file_path in directory.rglob("*"):
+            if file_path.is_file():
+                total_size += file_path.stat().st_size
+        return total_size / (1024 * 1024)
     
     def _check_for_resume(self) -> Optional[str]:
         """Check for existing checkpoint to resume from"""

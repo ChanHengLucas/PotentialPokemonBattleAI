@@ -32,6 +32,7 @@ A full-stack AI system that consistently wins competitive Pokémon battles by co
 - Node.js 18+
 - Python 3.8+
 - Git
+- GitHub CLI (for artifact uploads): `brew install gh` (macOS) or visit [cli.github.com](https://cli.github.com/)
 
 ### Installation
 
@@ -40,11 +41,63 @@ A full-stack AI system that consistently wins competitive Pokémon battles by co
 git clone <repository-url>
 cd "Potential Pokemon Battle AI"
 
-# Install dependencies
-npm install
+# Set up environment and dependencies
+./scripts/setup_env.sh
 
 # Start all services
-./scripts/start-services.sh
+./scripts/dev.sh
+```
+
+## 📦 Artifact Management
+
+The system automatically manages large training artifacts to keep the repository clean:
+
+### What's Excluded from Git
+- `data/logs/**` - Training logs (compressed externally)
+- `data/replays/**` - Battle replays
+- `models/checkpoints/**` - Model checkpoints
+- `*.pt`, `*.ckpt`, `*.jsonl`, `*.json.gz` - Large binary files
+
+### What's Included in Git
+- `data/schemas/**` - JSON schemas
+- `data/snapshots/**` - Configuration snapshots
+- `data/samples/**` - Small sample files (≤200KB)
+
+### Running Training
+
+```bash
+# Run a 5-game training with artifact management
+npm run smoke
+
+# Run full training (creates compressed artifacts)
+python scripts/training_orchestrator.py --games 1000 --explain-update
+```
+
+### Uploading Artifacts
+
+```bash
+# Upload to GitHub release
+./scripts/upload_artifacts.sh github_release
+
+# Keep artifacts locally
+./scripts/upload_artifacts.sh local_only --keep 3
+```
+
+### Downloading Full Artifacts
+
+Full training logs and checkpoints are available via GitHub releases:
+1. Visit [Releases](https://github.com/your-org/pokeai/releases)
+2. Download the latest `train-YYYYMMDD-<run_id>` release
+3. Extract compressed logs and checkpoints
+
+### Pruning Old Artifacts
+
+```bash
+# Keep only last 3 checkpoints
+python scripts/ckpt_prune.py --keep 3
+
+# List all checkpoints
+python scripts/ckpt_prune.py --list
 ```
 
 ### Manual Service Startup

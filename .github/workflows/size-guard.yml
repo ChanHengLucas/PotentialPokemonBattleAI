@@ -1,0 +1,79 @@
+name: Size Guard
+
+on:
+  pull_request:
+    branches:
+      - main
+  push:
+    branches:
+      - main
+
+jobs:
+  size-guard:
+    runs-on: ubuntu-latest
+    
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v4
+      with:
+        fetch-depth: 0  # Fetch all history for proper diff
+    
+    - name: Check for large files
+      run: |
+        echo "Checking for large files (>50MB) in staged changes..."
+        
+        # Get list of changed files
+        if [ "${{ github.event_name }}" = "pull_request" ]; then
+          # For PRs, check files changed in the PR
+          CHANGED_FILES=$(git diff --name-only origin/main...HEAD)
+        else
+          # For pushes, check files in the last commit
+          CHANGED_FILES=$(git diff --name-only HEAD~1...HEAD)
+        fi
+        
+        if [ -z "$CHANGED_FILES" ]; then
+          echo "No changed files detected"
+          exit 0
+        fi
+        
+        echo "Changed files:"
+        echo "$CHANGED_FILES"
+        
+        # Check each changed file for size
+        LARGE_FILES=()
+        for file in $CHANGED_FILES; do
+          if [ -f "$file" ]; then
+            size=$(stat -c%s "$file" 2>/dev/null || echo "0")
+            size_mb=$((size / 1024 / 1024))
+            
+            if [ $size_mb -gt 50 ]; then
+              LARGE_FILES+=("$file (${size_mb}MB)")
+            fi
+          fi
+        done
+        
+        if [ ${#LARGE_FILES[@]} -gt 0 ]; then
+          echo "❌ ERROR: Large files detected (>50MB):"
+          printf '%s\n' "${LARGE_FILES[@]}"
+          echo ""
+          echo "These files are too large for git. Please:"
+          echo "1. Add them to .gitignore"
+          echo "2. Use scripts/upload_artifacts.sh to upload them externally"
+          echo "3. Or compress/archive them before committing"
+          exit 1
+        else
+          echo "✅ No large files detected"
+        fi
+    
+    - name: Check repository size
+      run: |
+        echo "Checking total repository size..."
+        REPO_SIZE=$(du -sh . | cut -f1)
+        echo "Repository size: $REPO_SIZE"
+        
+        # Warn if repository is getting large
+        REPO_SIZE_MB=$(du -sm . | cut -f1)
+        if [ $REPO_SIZE_MB -gt 1000 ]; then
+          echo "⚠️  WARNING: Repository size is ${REPO_SIZE_MB}MB"
+          echo "Consider using git LFS or external storage for large files"
+        fi

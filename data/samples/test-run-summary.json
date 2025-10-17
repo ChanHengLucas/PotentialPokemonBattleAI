@@ -1,0 +1,13 @@
+{
+  "run_id": "test-run",
+  "timestamp": 1760703669.465345,
+  "total_events": 1000,
+  "event_types": {
+    "training_step": 1000
+  },
+  "stages": [
+    "baseline"
+  ],
+  "shard_count": 1,
+  "compressed": true
+}

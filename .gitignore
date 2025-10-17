@@ -1,0 +1,70 @@
+# PokéAI Git Ignore
+# Prevent large artifacts from entering git
+
+# Large training artifacts
+data/logs/**
+data/replays/**
+models/checkpoints/**
+*.pt
+*.ckpt
+*.jsonl
+*.json.gz
+
+# Keep these directories
+!data/schemas/**
+!data/snapshots/**
+!data/samples/**
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# Virtual environments
+.venv*/
+venv/
+env/
+ENV/
+
+# Node.js
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+logs/
+
+# Temporary files
+*.tmp
+*.temp
