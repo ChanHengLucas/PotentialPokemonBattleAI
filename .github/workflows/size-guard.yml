@@ -18,51 +18,33 @@ jobs:
       with:
         fetch-depth: 0  # Fetch all history for proper diff
     
-    - name: Check for large files
+    - name: Check Git LFS compliance
       run: |
-        echo "Checking for large files (>50MB) in staged changes..."
+        echo "Checking Git LFS compliance..."
         
-        # Get list of changed files
-        if [ "${{ github.event_name }}" = "pull_request" ]; then
-          # For PRs, check files changed in the PR
-          CHANGED_FILES=$(git diff --name-only origin/main...HEAD)
+        # Install Git LFS
+        git lfs install
+        
+        # Run LFS verification script
+        if [ -f "scripts/verify_lfs.sh" ]; then
+          chmod +x scripts/verify_lfs.sh
+          ./scripts/verify_lfs.sh
         else
-          # For pushes, check files in the last commit
-          CHANGED_FILES=$(git diff --name-only HEAD~1...HEAD)
-        fi
-        
-        if [ -z "$CHANGED_FILES" ]; then
-          echo "No changed files detected"
-          exit 0
-        fi
-        
-        echo "Changed files:"
-        echo "$CHANGED_FILES"
-        
-        # Check each changed file for size
-        LARGE_FILES=()
-        for file in $CHANGED_FILES; do
-          if [ -f "$file" ]; then
-            size=$(stat -c%s "$file" 2>/dev/null || echo "0")
-            size_mb=$((size / 1024 / 1024))
-            
-            if [ $size_mb -gt 50 ]; then
-              LARGE_FILES+=("$file (${size_mb}MB)")
-            fi
-          fi
-        done
-        
-        if [ ${#LARGE_FILES[@]} -gt 0 ]; then
-          echo "❌ ERROR: Large files detected (>50MB):"
-          printf '%s\n' "${LARGE_FILES[@]}"
-          echo ""
-          echo "These files are too large for git. Please:"
-          echo "1. Add them to .gitignore"
-          echo "2. Use scripts/upload_artifacts.sh to upload them externally"
-          echo "3. Or compress/archive them before committing"
+          echo "❌ ERROR: scripts/verify_lfs.sh not found"
           exit 1
+        fi
+    
+    - name: Verify LFS is active
+      run: |
+        echo "Verifying Git LFS is active..."
+        git lfs ls-files
+        lfs_count=$(git lfs ls-files | wc -l)
+        echo "LFS tracked files: $lfs_count"
+        
+        if [ $lfs_count -gt 0 ]; then
+          echo "✅ Git LFS is active with $lfs_count tracked files"
         else
-          echo "✅ No large files detected"
+          echo "ℹ️  No files currently tracked by LFS (this may be normal)"
         fi
     
     - name: Check repository size

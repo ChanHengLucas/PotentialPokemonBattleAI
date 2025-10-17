@@ -97,19 +97,31 @@ print_info "Latest run: $LATEST_RUN"
 # Collect artifacts
 ARTIFACTS=()
 UPLOAD_DIR="artifacts_upload"
+SKIPPED_LFS=()
 
 # Create upload directory
 rm -rf "$UPLOAD_DIR"
 mkdir -p "$UPLOAD_DIR"
+
+# Get list of LFS tracked files
+lfs_list=$(git lfs ls-files -n 2>/dev/null || echo "")
+
+print_info "Checking for LFS tracked files to skip..."
 
 # 1. Compressed logs
 print_info "Collecting compressed logs..."
 if [ -d "data/logs/train/$LATEST_RUN" ]; then
   for log_file in data/logs/train/$LATEST_RUN/*.jsonl.gz; do
     if [ -f "$log_file" ]; then
-      cp "$log_file" "$UPLOAD_DIR/"
-      ARTIFACTS+=("$(basename "$log_file")")
-      print_info "  Added: $(basename "$log_file")"
+      # Check if this file is tracked by LFS
+      if echo "$lfs_list" | grep -q "^$log_file$"; then
+        SKIPPED_LFS+=("$log_file (LFS tracked)")
+        print_info "  Skipped (LFS): $(basename "$log_file")"
+      else
+        cp "$log_file" "$UPLOAD_DIR/"
+        ARTIFACTS+=("$(basename "$log_file")")
+        print_info "  Added: $(basename "$log_file")"
+      fi
     fi
   done
 else
@@ -231,6 +243,26 @@ if [ "$MODE" = "github_release" ]; then
   fi
   
   print_success "Cleanup completed"
+fi
+
+# Show summary table
+print_info ""
+print_info "Upload Summary:"
+print_info "==============="
+print_info "Uploaded artifacts:"
+for artifact in "${ARTIFACTS[@]}"; do
+  size=$(du -h "$UPLOAD_DIR/$artifact" | cut -f1)
+  print_info "  ✅ $artifact ($size)"
+done
+
+if [ ${#SKIPPED_LFS[@]} -gt 0 ]; then
+  print_info ""
+  print_info "Skipped (LFS tracked):"
+  for skipped in "${SKIPPED_LFS[@]}"; do
+    print_info "  ⏭️  $skipped"
+  done
+  print_info ""
+  print_info "Note: LFS tracked files are available via git clone + git lfs install"
 fi
 
 print_success "Upload artifacts completed successfully!"

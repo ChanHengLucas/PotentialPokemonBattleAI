@@ -100,6 +100,65 @@ python scripts/ckpt_prune.py --keep 3
 python scripts/ckpt_prune.py --list
 ```
 
+## 📁 Large Files & Git LFS (Training Logs)
+
+The system uses Git LFS to handle large training logs while keeping the repository lightweight:
+
+### What Goes to LFS
+- **Training logs**: Any file under `data/logs/**` with extensions:
+  - `.json` - Training event logs
+  - `.jsonl` - Newline-delimited JSON logs  
+  - `.json.gz` - Compressed JSON logs
+  - `.jsonl.gz` - Compressed NDJSON logs
+
+### What Stays in Regular Git
+- **Code**: All source code and scripts
+- **Configs**: Configuration files in `config/`
+- **Schemas**: JSON schemas in `data/schemas/`
+- **Samples**: Small sample files in `data/samples/` (≤200KB)
+
+### One-Time Migration
+
+If you have existing training logs in the repository:
+
+```bash
+# 1. Setup Git LFS
+./scripts/setup_lfs.sh
+
+# 2. Migrate existing history to LFS
+./scripts/migrate_to_lfs.sh
+
+# 3. Force push (rewrites history)
+git push origin main --force
+```
+
+**⚠️ Warning**: Migration rewrites git history. Notify collaborators to re-clone.
+
+### Cloning with LFS
+
+When cloning the repository elsewhere:
+
+```bash
+git clone <repo-url>
+cd <repo-name>
+git lfs install
+```
+
+### Storage Notes
+
+- **GitHub LFS**: Includes storage/bandwidth quotas
+- **Archiving**: Consider archiving old logs to Releases or cloud storage
+- **Quotas**: Monitor LFS usage in repository settings
+
+### Troubleshooting
+
+If push is rejected due to size:
+```bash
+# Re-run migration and force push
+./scripts/migrate_to_lfs.sh
+git push origin main --force
+```
+
 ### Manual Service Startup
 
 ```bash
