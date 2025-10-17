@@ -1,4 +1,12 @@
+# Git LFS tracking for large training artifacts
+# Only track large files under data/logs/** - keep schemas and configs in regular Git
+
+# Training artifacts via LFS (binary/large)
 data/logs/**/*.json filter=lfs diff=lfs merge=lfs -text
 data/logs/**/*.jsonl filter=lfs diff=lfs merge=lfs -text
-data/logs/**/*.json.gz filter=lfs diff=lfs merge=lfs -text
 data/logs/**/*.jsonl.gz filter=lfs diff=lfs merge=lfs -text
+data/logs/**/*.json.gz filter=lfs diff=lfs merge=lfs -text
+# Ensure these stay in regular Git (not LFS)
+data/schemas/** -text
+config/** -text
+data/samples/** -text
